@@ -1,4 +1,4 @@
-from wdp.models import Entry
+from wdp import Entry
 
 color_entry = Entry('color')
 color_entry.add_alternate_form('colour', 'Chiefly British')

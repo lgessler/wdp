@@ -17,7 +17,9 @@ class _DefaultReprMixin:
     """Internal mixin class that provides a __repr__ implementation that shows all non-callable attrs"""
     def __repr__(self):
         class_name = self.__class__.__name__
-        data_string = ", ".join(str(k) + "=" + str(v) for k, v in self.__dict__.items() if not callable(v))
+        data_string = ", ".join(str(k) + "=" + ('"' + v + '"' if isinstance(v, str) else str(v))
+                                for k, v in self.__dict__.items()
+                                if not callable(v))
         return f'{class_name}({data_string})'
 
 
