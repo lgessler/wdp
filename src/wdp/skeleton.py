@@ -55,9 +55,7 @@ def parse_args(args):
     """
     parser = argparse.ArgumentParser(description="Just a Fibonacci demonstration")
     parser.add_argument(
-        "--version",
-        action="version",
-        version="wdp {ver}".format(ver=__version__),
+        "--version", action="version", version="wdp {ver}".format(ver=__version__),
     )
     parser.add_argument(dest="n", help="n-th Fibonacci number", type=int, metavar="INT")
     parser.add_argument(
