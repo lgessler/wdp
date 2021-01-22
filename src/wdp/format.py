@@ -35,8 +35,7 @@ def group_definitions_by_pos(context: dict):
     parts_of_speech = set(definition["part_of_speech"] for definition in definitions)
 
     context["grouped_definitions"] = {
-        pos.capitalize(): [d for d in definitions if d["part_of_speech"] == pos]
-        for pos in parts_of_speech
+        pos.capitalize(): [d for d in definitions if d["part_of_speech"] == pos] for pos in parts_of_speech
     }
 
 

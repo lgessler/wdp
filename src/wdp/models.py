@@ -68,9 +68,7 @@ class Entry(_DefaultReprMixin, _ToDictMixin):
         self.definitions.append(Definition(definition, part_of_speech=part_of_speech))
 
     def add_alternate_form(self, alternate_form, description_of_use=None):
-        self.alternate_forms.append(
-            AlternateForm(alternate_form, description_of_use=description_of_use)
-        )
+        self.alternate_forms.append(AlternateForm(alternate_form, description_of_use=description_of_use))
 
     def add_pronunciation(self, pronunciation, notation=None):
         self.pronunciations.append(Pronunciation(pronunciation, notation=notation))

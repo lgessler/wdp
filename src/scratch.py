@@ -13,9 +13,7 @@ print(format_entry(color_entry, "en", "English"))
 bank_entry = Entry("bank")
 bank_entry.add_pronunciation("beŋk", "IPA")
 bank_entry.add_definition("A place where you put your money", part_of_speech="Noun")
-bank_entry.add_definition(
-    "A collection of annoying things, like syntax trees", part_of_speech="Verb"
-)
+bank_entry.add_definition("A collection of annoying things, like syntax trees", part_of_speech="Verb")
 bank_entry.add_definition("<Imaginary verbal sense of bank>", part_of_speech="Verb")
 # Entry(word_form=bank,
 #       definitions=[
