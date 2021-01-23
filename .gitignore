@@ -49,3 +49,8 @@ MANIFEST
 
 # Per-project virtualenvs
 .venv*/
+
+# pywikibot junk
+apicache-py3/
+pywikibot.lwp
+throttle.ctrl
