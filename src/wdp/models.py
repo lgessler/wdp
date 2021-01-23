@@ -30,7 +30,7 @@ class _ToDictMixin:
             elif isinstance(v, list) or isinstance(v, tuple):
                 d[k] = [v2 if not hasattr(v2, "to_dict") else v2.to_dict() for v2 in v]
             else:
-                d[k] = v if not hasattr(v, "to_dict") else v
+                d[k] = v if not hasattr(v, "to_dict") else v.to_dict()
 
         return d
 
