@@ -5,7 +5,7 @@ from jinja2 import Template
 
 # TODO: add IPA handling e.g. {{IPA|en|foo|bar}}
 ENTRY_TEMPLATE = Template(
-    """=={{ lang_name }}==
+    """=={{lang_name}}==
 {% if alternate_forms %}
 ===Alternative forms===
 {% for form in alternate_forms %}
@@ -48,9 +48,10 @@ def format_entry(entry: Entry, lang_code: str, lang_name: str):
     output = ENTRY_TEMPLATE.render(**context)
     output = re.sub(r"\n\n+", "\n\n", output)
     output = re.sub(r"===\n\n", "===\n", output)
-    return output
+    return (entry.word_form, output)
 
 
 def format_entries(entries: List[Entry], lang_code: str, lang_name: str):
-    # TODO: check for multiple entries with the same word form and split into separate etymologies as needed
-    pass
+    # TODO: need to find entries with the same form and make sure we add Etymology 1, Etymology 2, etc.
+    formatted_entries = [format_entry(entry, lang_code, lang_name) for entry in entries]
+    return formatted_entries

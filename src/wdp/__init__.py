@@ -11,3 +11,5 @@ finally:
     del get_distribution, DistributionNotFound
 
 from wdp.models import Entry
+from wdp.format import format_entries
+from wdp.upload import upload_formatted_entries
