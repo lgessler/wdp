@@ -31,6 +31,10 @@ ENTRY_TEMPLATE = Template(
 
 
 def group_definitions_by_pos(context: dict):
+    """
+    Add a new key, "grouped_definitions", to the context which maps from part of speech to a list of
+    all the definitions with that part of speech.
+    """
     definitions = context["definitions"]
     parts_of_speech = set(definition["part_of_speech"] for definition in definitions)
 

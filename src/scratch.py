@@ -25,5 +25,5 @@ print(formatted_entries[1][1])
 print()
 
 # Step 3: upload (page_override forces all word forms to be inserted into a debug page)
-upload_formatted_entries(formatted_entries, 'English', page_override='User:AryamanA/test123')
+upload_formatted_entries(formatted_entries, "English", page_override="User:AryamanA/test123")
 print(formatted_entries[0])
