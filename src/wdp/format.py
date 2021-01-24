@@ -9,7 +9,7 @@ ENTRY_TEMPLATE = Template(
 {% if alternate_forms %}
 ===Alternative forms===
 {% for form in alternate_forms %}
-* {{'{{'}}alter|{{form.lang_code}}|{{form.alternate_form}}|{{form.description_of_use}}{{'}}'}}
+* {{'{{'}}alter|{{lang_code}}|{{form.alternate_form}}|{{form.description_of_use}}{{'}}'}}
 {% endfor %}
 {% endif %}
 
