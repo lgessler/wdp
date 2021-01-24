@@ -48,7 +48,7 @@ class Pronunciation(_DefaultReprMixin, _ToDictMixin):
 
 
 class Definition(_DefaultReprMixin, _ToDictMixin):
-    def __init__(self, definition, part_of_speech=None):
+    def __init__(self, definition, part_of_speech):
         self.definition = definition
         self.part_of_speech = part_of_speech
 
@@ -64,8 +64,8 @@ class Word(_DefaultReprMixin, _ToDictMixin):
         self.alternate_forms = []
         self.pronunciations = []
 
-    def add_definition(self, definition, part_of_speech=None):
-        self.definitions.append(Definition(definition, part_of_speech=part_of_speech))
+    def add_definition(self, definition, part_of_speech):
+        self.definitions.append(Definition(definition, part_of_speech))
 
     def add_alternate_form(self, alternate_form, description_of_use=None):
         self.alternate_forms.append(AlternateForm(alternate_form, description_of_use=description_of_use))
