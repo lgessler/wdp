@@ -1,6 +1,6 @@
-from typing import List
+from typing import List, Tuple
 import re
-from wdp.models import Entry
+from wdp.models import Word
 from jinja2 import Template
 
 # TODO: add IPA handling e.g. {{IPA|en|foo|bar}}
@@ -43,7 +43,7 @@ def group_definitions_by_pos(context: dict):
     }
 
 
-def format_entry(entry: Entry, lang_code: str, lang_name: str):
+def format_entry(entry: Word, lang_code: str, lang_name: str) -> Tuple[str, str]:
     context = entry.to_dict()
     context["lang_code"] = lang_code
     context["lang_name"] = lang_name
@@ -55,7 +55,7 @@ def format_entry(entry: Entry, lang_code: str, lang_name: str):
     return (entry.word_form, output)
 
 
-def format_entries(entries: List[Entry], lang_code: str, lang_name: str):
+def format_entries(entries: List[Word], lang_code: str, lang_name: str) -> List[Tuple[str, str]]:
     # TODO: need to find entries with the same form and make sure we add Etymology 1, Etymology 2, etc.
     formatted_entries = [format_entry(entry, lang_code, lang_name) for entry in entries]
     return formatted_entries

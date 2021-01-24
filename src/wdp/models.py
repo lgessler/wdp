@@ -53,7 +53,7 @@ class Definition(_DefaultReprMixin, _ToDictMixin):
         self.part_of_speech = part_of_speech
 
 
-class Entry(_DefaultReprMixin, _ToDictMixin):
+class Word(_DefaultReprMixin, _ToDictMixin):
     """
     TODO
     """

@@ -1,10 +1,10 @@
-from wdp import Entry, format_entries, upload_formatted_entries
+from wdp import Word, format_entries, upload_formatted_entries
 
 # Step 1: build entries
-color_entry = Entry("color")
+color_entry = Word("color")
 color_entry.add_alternate_form("colour", "Chiefly British")
 
-bank_entry = Entry("bank")
+bank_entry = Word("bank")
 bank_entry.add_pronunciation("beŋk", "IPA")
 bank_entry.add_definition("A place where you put your money", part_of_speech="Noun")
 bank_entry.add_definition("A collection of annoying things, like syntax trees", part_of_speech="Noun")
