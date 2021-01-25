@@ -3,54 +3,9 @@ import logging
 from typing import List
 
 from wdp import Word
+from wdp.const import VALID_POS
 
 _logger = logging.getLogger(__name__)
-
-VALID_POS = [
-    "Adjective",
-    "Adverb",
-    "Ambiposition",
-    "Article",
-    "Circumposition",
-    "Classifier",
-    "Conjunction",
-    "Contraction",
-    "Counter",
-    "Determiner",
-    "Ideophone",
-    "Interjection",
-    "Noun",
-    "Numeral",
-    "Participle",
-    "Particle",
-    "Postposition",
-    "Preposition",
-    "Pronoun",
-    "Proper noun",
-    "Verb",
-    "Circumfix",
-    "Combining form",
-    "Infix",
-    "Interfix",
-    "Prefix",
-    "Root",
-    "Suffix",
-    "Diacritical mark",
-    "Letter",
-    "Ligature",
-    "Number",
-    "Punctuation mark",
-    "Syllable",
-    "Symbol",
-    "Phrase",
-    "Proverb",
-    "Prepositional phrase",
-    "Han character",
-    "Hanzi",
-    "Kanji",
-    "Hanja",
-    "Romanization",
-]
 
 
 def _warn(word, msg):

@@ -9,33 +9,33 @@ from wdp.validate import validate_word
 ENTRY_TEMPLATE = Template(
     """=={{lang_name}}==
 {% for word in words %}
-{% if words|length > 1 %}
-{{ section(1, "Etymology " ~ loop.index) }}
-{% endif %}
+    {% if words|length > 1 %}
+        {{ section(1, "Etymology " ~ loop.index) }}
+    {% endif %}
 
-{% if word['alternate_forms'] %}
-{{ section(2, "Alternative forms") }}
-{% for form in word['alternate_forms'] %}
-* {{LL}}alter|{{lang_code}}|{{form.alternate_form}}||{{form.description_of_use}}{{RR}}
-{% endfor %}
-{% endif %}
+    {% if word['alternate_forms'] %}
+        {{ section(2, "Alternative forms") }}
+        {% for form in word['alternate_forms'] %}
+            * {{LL}}alter|{{lang_code}}|{{form.alternate_form}}||{{form.description_of_use}}{{RR}}
+        {% endfor %}
+    {% endif %}
 
-{% if word['pronunciations'] %}
-{{ section(2, "Pronunciations") }}
-{% for pronunciation in word['pronunciations'] %}
-{% if pronunciation.notation|lower == "ipa" %}
-* {{LL}}IPA|{{lang_code}}|{{pronunciation.pronunciation}}{{RR}}
-{% else %}
-* {{pronunciation.pronunciation}}
-{% endif %}
-{% endfor %}
-{% endif %}
+    {% if word['pronunciations'] %}
+        {{ section(2, "Pronunciations") }}
+        {% for pronunciation in word['pronunciations'] %}
+            {% if pronunciation.notation|lower == "ipa" %}
+                * {{LL}}IPA|{{lang_code}}|{{pronunciation.pronunciation}}{{RR}}
+            {% else %}
+                * {{pronunciation.pronunciation}}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 
-{% for pos in word["grouped_definitions"] %}
-{{ section(2, pos) }}
-{{LL}}head|{{lang_code}}|{{pos}}{{RR}}
-{% for definition in word["grouped_definitions"][pos] %} 
-# {{definition.definition}}{% endfor %}{% endfor %}
+    {% for pos in word["grouped_definitions"] %}
+        {{ section(2, pos) }}
+        {{LL}}head|{{lang_code}}|{{pos}}{{RR}}
+        {% for definition in word["grouped_definitions"][pos] %} 
+            # {{definition.definition}}{% endfor %}{% endfor %}
 {% endfor %}
 """
 )
@@ -85,6 +85,8 @@ def format_entry(word_group: List[Word], lang_code: str, lang_name: str) -> Tupl
         return s + content + s
 
     output = ENTRY_TEMPLATE.render(section=section, LL="{{", RR="}}", **context)
+    # undo formatting that made the jinja template easier to read
+    output = "\n".join(re.sub(r"^ +", "", line) for line in output.split("\n"))
     output = re.sub(r"\n\n+", "\n\n", output)
     output = re.sub(r"===\n\n", "===\n", output)
     return word_group[0].word_form, output
