@@ -6,38 +6,31 @@ from jinja2 import Template
 # TODO: add IPA handling e.g. {{IPA|en|foo|bar}}
 ENTRY_TEMPLATE = Template(
     """=={{lang_name}}==
-{% if alternate_forms %}
-===Alternative forms===
-{% for form in alternate_forms %}
+{% for word in words %}
+{% if words|length > 1 %}
+{{ section(1, "Etymology " ~ loop.index) }}
+{% endif %}
+
+{% if word['alternate_forms'] %}
+{{ section(2, "Alternative forms") }}
+{% for form in word['alternate_forms'] %}
 * {{'{{'}}alter|{{lang_code}}|{{form.alternate_form}}|{{form.description_of_use}}{{'}}'}}
 {% endfor %}
 {% endif %}
 
-{% if pronunciations %}
-===Pronunciations===
-{% for pronunciation in pronunciations %}
+{% if word['pronunciations'] %}
+{{ section(2, "Pronunciations") }}
+{% for pronunciation in word['pronunciations'] %}
 * {{pronunciation.pronunciation}}
 {% endfor %}
 {% endif %}
 
-{% if words|length > 1 %}
-{% for word in words %}
-===Etymology {{loop.index}}===
 {% for pos in word["grouped_definitions"] %}
-===={{pos}}====
+{{ section(2, pos) }}
 {{'{{'}}head|{{lang_code}}|{{pos}}{{'}}'}}
 {% for definition in word["grouped_definitions"][pos] %} 
 # {{definition.definition}}{% endfor %}{% endfor %}
 {% endfor %}
-{% else %}
-{% for word in words %}
-{% for pos in word["grouped_definitions"] %}
-===={{pos}}====
-{{'{{'}}head|{{lang_code}}|{{pos}}{{'}}'}}
-{% for definition in word["grouped_definitions"][pos] %} 
-# {{definition.definition}}{% endfor %}{% endfor %}
-{% endfor %}
-{% endif %}
 """
 )
 
@@ -52,15 +45,6 @@ def group_definitions_by_pos(context: dict):
     return {
         pos.capitalize(): [d for d in definitions if d["part_of_speech"] == pos] for pos in parts_of_speech
     }
-
-
-def build_top_context(context: dict, word_context: dict):
-    """
-    Most Word information is applies to the whole entry, not being tied to a specific etymology.
-    This function pulls this information out of word contexts and add it to the top-level context
-    """
-    for key in ["pronunciations", "alternate_forms"]:
-        context[key] += word_context[key]
 
 
 def format_entry(word_group: List[Word], lang_code: str, lang_name: str) -> Tuple[str, str]:
@@ -79,12 +63,24 @@ def format_entry(word_group: List[Word], lang_code: str, lang_name: str) -> Tupl
     # iterate over Word objects
     for word in word_group:
         word_context = word.to_dict()
-        build_top_context(context, word_context)
         # a Word will in general have many definitions with different parts of speech--separate them
         word_context["grouped_definitions"] = group_definitions_by_pos(word_context)
         context["words"].append(word_context)
 
-    output = ENTRY_TEMPLATE.render(**context)
+    def section(depth, content):
+        """
+        Formats string according to whether there is more than one word group or not.
+        Args:
+            depth:   1-indexed depth relative to the 2-deep ==Language== header
+            content: a string to be displayed in a header
+
+        Returns: Formatted string
+        """
+        c = 1 + (len(word_group) > 1)
+        s = '=' * (depth + c)
+        return s + content + s
+
+    output = ENTRY_TEMPLATE.render(section=section, **context)
     output = re.sub(r"\n\n+", "\n\n", output)
     output = re.sub(r"===\n\n", "===\n", output)
     return word_group[0].word_form, output
@@ -97,7 +93,6 @@ def group_words(words: List[Word]) -> List[List[Word]]:
 
 
 def format_entries(words: List[Word], lang_code: str, lang_name: str) -> List[Tuple[str, str]]:
-    # TODO: need to find entries with the same form and make sure we add Etymology 1, Etymology 2, etc.
     grouped_words = group_words(words)
     formatted_entries = [format_entry(word_group, lang_code, lang_name) for word_group in grouped_words]
     return formatted_entries
