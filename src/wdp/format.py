@@ -81,8 +81,6 @@ def format_entry(word_group: List[Word], lang_code: str, lang_name: str) -> Tupl
     context = dict(
         lang_code=lang_code,
         lang_name=lang_name,
-        pronunciations=[],
-        alternate_forms=[],
         words=[],
     )
 
