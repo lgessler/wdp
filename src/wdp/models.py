@@ -36,21 +36,21 @@ class _ToDictMixin:
 
 
 class AlternateForm(_DefaultReprMixin, _ToDictMixin):
-    def __init__(self, alternate_form, description_of_use=None):
+    def __init__(self, alternate_form: str, description_of_use: str = None):
         self.alternate_form = alternate_form
         self.description_of_use = description_of_use
 
 
 class Pronunciation(_DefaultReprMixin, _ToDictMixin):
-    def __init__(self, pronunciation, notation=None):
+    def __init__(self, pronunciation: str, notation: str = None):
         self.pronunciation = pronunciation
         self.notation = notation
 
 
 class Definition(_DefaultReprMixin, _ToDictMixin):
-    def __init__(self, definition, part_of_speech):
+    def __init__(self, definition: str, part_of_speech: str):
         self.definition = definition
-        self.part_of_speech = part_of_speech
+        self.part_of_speech = part_of_speech.capitalize()
 
 
 class Word(_DefaultReprMixin, _ToDictMixin):
@@ -64,11 +64,11 @@ class Word(_DefaultReprMixin, _ToDictMixin):
         self.alternate_forms = []
         self.pronunciations = []
 
-    def add_definition(self, definition, part_of_speech):
+    def add_definition(self, definition: str, part_of_speech: str):
         self.definitions.append(Definition(definition, part_of_speech))
 
-    def add_alternate_form(self, alternate_form, description_of_use=None):
+    def add_alternate_form(self, alternate_form: str, description_of_use: str = None):
         self.alternate_forms.append(AlternateForm(alternate_form, description_of_use=description_of_use))
 
-    def add_pronunciation(self, pronunciation, notation=None):
+    def add_pronunciation(self, pronunciation: str, notation: str = None):
         self.pronunciations.append(Pronunciation(pronunciation, notation=notation))

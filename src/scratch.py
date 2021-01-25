@@ -16,16 +16,16 @@ print(bank_word)
 print()
 
 other_bank_word = Word("bank")
-other_bank_word.add_definition("The edges of a river", 'Noun')
+other_bank_word.add_definition("The edges of a river", "Noun")
 
 # Step 2: format the entries into a list of 2-tuples: first is the word's form, second is the mwtext for the word
 entries = [color_word, bank_word, other_bank_word]
 formatted_entries = format_entries(entries, "en", "English")
 print("Step 2 output:")
-print('#############', formatted_entries[0][0])
+print("#############", formatted_entries[0][0])
 print(formatted_entries[0][1])
 print()
-print('#############', formatted_entries[1][0])
+print("#############", formatted_entries[1][0])
 print(formatted_entries[1][1])
 print()
 

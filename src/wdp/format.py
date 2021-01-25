@@ -4,6 +4,8 @@ from wdp.models import Word
 from jinja2 import Template
 
 # TODO: add IPA handling e.g. {{IPA|en|foo|bar}}
+from wdp.validate import validate_word
+
 ENTRY_TEMPLATE = Template(
     """=={{lang_name}}==
 {% for word in words %}
@@ -14,20 +16,24 @@ ENTRY_TEMPLATE = Template(
 {% if word['alternate_forms'] %}
 {{ section(2, "Alternative forms") }}
 {% for form in word['alternate_forms'] %}
-* {{'{{'}}alter|{{lang_code}}|{{form.alternate_form}}|{{form.description_of_use}}{{'}}'}}
+* {{LL}}alter|{{lang_code}}|{{form.alternate_form}}||{{form.description_of_use}}{{RR}}
 {% endfor %}
 {% endif %}
 
 {% if word['pronunciations'] %}
 {{ section(2, "Pronunciations") }}
 {% for pronunciation in word['pronunciations'] %}
+{% if pronunciation.notation|lower == "ipa" %}
+* {{LL}}IPA|{{lang_code}}|{{pronunciation.pronunciation}}{{RR}}
+{% else %}
 * {{pronunciation.pronunciation}}
+{% endif %}
 {% endfor %}
 {% endif %}
 
 {% for pos in word["grouped_definitions"] %}
 {{ section(2, pos) }}
-{{'{{'}}head|{{lang_code}}|{{pos}}{{'}}'}}
+{{LL}}head|{{lang_code}}|{{pos}}{{RR}}
 {% for definition in word["grouped_definitions"][pos] %} 
 # {{definition.definition}}{% endfor %}{% endfor %}
 {% endfor %}
@@ -42,9 +48,7 @@ def group_definitions_by_pos(context: dict):
     definitions = context["definitions"]
     parts_of_speech = set(definition["part_of_speech"] for definition in definitions)
 
-    return {
-        pos.capitalize(): [d for d in definitions if d["part_of_speech"] == pos] for pos in parts_of_speech
-    }
+    return {pos.capitalize(): [d for d in definitions if d["part_of_speech"] == pos] for pos in parts_of_speech}
 
 
 def format_entry(word_group: List[Word], lang_code: str, lang_name: str) -> Tuple[str, str]:
@@ -77,10 +81,10 @@ def format_entry(word_group: List[Word], lang_code: str, lang_name: str) -> Tupl
         Returns: Formatted string
         """
         c = 1 + (len(word_group) > 1)
-        s = '=' * (depth + c)
+        s = "=" * (depth + c)
         return s + content + s
 
-    output = ENTRY_TEMPLATE.render(section=section, **context)
+    output = ENTRY_TEMPLATE.render(section=section, LL="{{", RR="}}", **context)
     output = re.sub(r"\n\n+", "\n\n", output)
     output = re.sub(r"===\n\n", "===\n", output)
     return word_group[0].word_form, output
@@ -93,6 +97,8 @@ def group_words(words: List[Word]) -> List[List[Word]]:
 
 
 def format_entries(words: List[Word], lang_code: str, lang_name: str) -> List[Tuple[str, str]]:
+    for word in words:
+        validate_word(word)
     grouped_words = group_words(words)
     formatted_entries = [format_entry(word_group, lang_code, lang_name) for word_group in grouped_words]
     return formatted_entries
