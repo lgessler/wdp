@@ -97,12 +97,12 @@ def format_entry(word_group: List[Word], lang_code: str, lang_name: str) -> Tupl
         """
         Formats string according to whether there is more than one word group or not.
         Args:
-            depth:   1-indexed depth relative to the 2-deep ==Language== header
+            depth:   the level the section has in an entry with a single etymology
             content: a string to be displayed in a header
 
-        Returns: Formatted string
+        Returns: Formatted section header
         """
-        c = (len(word_group) > 1)
+        c = len(word_group) > 1
         s = "=" * (depth + c)
         return s + content + s
 
