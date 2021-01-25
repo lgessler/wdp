@@ -3,6 +3,10 @@
 TODO
 """
 import logging
+import os
+import pickle
+from zipfile import ZipFile
+from typing import List
 
 _logger = logging.getLogger(__name__)
 
@@ -23,7 +27,7 @@ class _DefaultReprMixin:
 class _ToDictMixin:
     def to_dict(self):
         """Return all non-callable attributes in this Entry object as a dictionary recursively"""
-        d = {}
+        d = {'__class__': self.__class__.__name__}
         for k, v in self.__dict__.items():
             if callable(v):
                 continue
@@ -63,6 +67,10 @@ class Word(_DefaultReprMixin, _ToDictMixin):
         self.definitions = []
         self.alternate_forms = []
         self.pronunciations = []
+        self.etymology = None
+        self.description = None
+        self.references = None
+        self.usage_notes = None
 
     def add_definition(self, definition: str, part_of_speech: str):
         self.definitions.append(Definition(definition, part_of_speech))
@@ -72,3 +80,33 @@ class Word(_DefaultReprMixin, _ToDictMixin):
 
     def add_pronunciation(self, pronunciation: str, notation: str = None):
         self.pronunciations.append(Pronunciation(pronunciation, notation=notation))
+
+    def set_etymology(self, etymology: str):
+        self.etymology = etymology
+
+    def set_description(self, description: str):
+        self.description = description
+
+    def set_references(self, references: str):
+        self.references = references
+
+    def set_usage_notes(self, usage_notes: str):
+        self.usage_notes = usage_notes
+
+
+def export_words(words: List[Word], filepath: str):
+    if filepath[-4:] != ".zip":
+        filepath += ".zip"
+    f = ZipFile(filepath, 'w')
+    f.writestr('words.pkl', pickle.dumps(words))
+    f.close()
+    _logger.info(f"Wrote words to {filepath}")
+
+
+def import_words(filepath: str) -> List[Word]:
+    if not os.path.isfile(filepath):
+        raise Exception(f"File '{filepath}' does not exist.")
+    f = ZipFile(filepath, 'r')
+    words = pickle.loads(f.read('words.pkl'))
+    f.close()
+    return words

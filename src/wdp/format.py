@@ -10,18 +10,28 @@ ENTRY_TEMPLATE = Template(
     """=={{lang_name}}==
 {% for word in words %}
     {% if words|length > 1 %}
-        {{ section(1, "Etymology " ~ loop.index) }}
+        {{ section(2, "Etymology " ~ loop.index) }}
     {% endif %}
 
     {% if word['alternate_forms'] %}
-        {{ section(2, "Alternative forms") }}
+        {{ section(3, "Alternative forms") }}
         {% for form in word['alternate_forms'] %}
             * {{LL}}alter|{{lang_code}}|{{form.alternate_form}}||{{form.description_of_use}}{{RR}}
         {% endfor %}
     {% endif %}
+    
+    {% if word['description'] %}
+      {{ section(3, "Description") }}
+      {{ word['description'] }}
+    {% endif %}
+    
+    {% if word['etymology'] %}
+      {{ section(3, "Etymology") }}
+      {{ word['etymology'] }}
+    {% endif %}
 
-    {% if word['pronunciations'] %}
-        {{ section(2, "Pronunciations") }}
+    {% if word['pronunciation'] %}
+        {{ section(3, "Pronunciation") }}
         {% for pronunciation in word['pronunciations'] %}
             {% if pronunciation.notation|lower == "ipa" %}
                 * {{LL}}IPA|{{lang_code}}|{{pronunciation.pronunciation}}{{RR}}
@@ -32,10 +42,22 @@ ENTRY_TEMPLATE = Template(
     {% endif %}
 
     {% for pos in word["grouped_definitions"] %}
-        {{ section(2, pos) }}
+        {{ section(3, pos) }}
         {{LL}}head|{{lang_code}}|{{pos}}{{RR}}
         {% for definition in word["grouped_definitions"][pos] %} 
-            # {{definition.definition}}{% endfor %}{% endfor %}
+            # {{definition.definition}}
+        {% endfor %}
+    {% endfor %}
+    
+    {% if word['usage_notes'] %}
+      {{ section(3, "Usage notes") }}
+      {{ word['usage_notes'] }}
+    {% endif %}
+    
+    {% if word['references'] %}
+      {{ section(3, "References") }}
+      {{ word['references'] }}
+    {% endif %}
 {% endfor %}
 """
 )
@@ -80,13 +102,15 @@ def format_entry(word_group: List[Word], lang_code: str, lang_name: str) -> Tupl
 
         Returns: Formatted string
         """
-        c = 1 + (len(word_group) > 1)
+        c = (len(word_group) > 1)
         s = "=" * (depth + c)
         return s + content + s
 
     output = ENTRY_TEMPLATE.render(section=section, LL="{{", RR="}}", **context)
     # undo formatting that made the jinja template easier to read
     output = "\n".join(re.sub(r"^ +", "", line) for line in output.split("\n"))
+    output = re.sub(r"\n\n+#", "\n#", output)
+    output = re.sub(r"=\n+=", "=\n=", output)
     output = re.sub(r"\n\n+", "\n\n", output)
     output = re.sub(r"===\n\n", "===\n", output)
     return word_group[0].word_form, output

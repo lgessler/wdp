@@ -10,6 +10,6 @@ except DistributionNotFound:
 finally:
     del get_distribution, DistributionNotFound
 
-from wdp.models import Word
+from wdp.models import Word, export_words, import_words
 from wdp.format import format_entries
 from wdp.upload import upload_formatted_entries

@@ -16,8 +16,6 @@ def upload_formatted_entries(
     for word_form, entry_string in formatted_entries:
         page = pywikibot.Page(site, page_prefix + word_form)
         order = re.findall(r"(^|\n)==([^=]*?)==[\n]", page.text)
-        print(page.text)
-        print(order)
 
         if order:
             for _, lang in order:
