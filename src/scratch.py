@@ -1,3 +1,5 @@
+from pprint import pprint
+
 from wdp import Word, format_entries, upload_formatted_entries, export_words, import_words
 
 # Step 1: build entries
@@ -17,6 +19,7 @@ bank_word.set_references("Test references")
 bank_word.set_description("Test description")
 print("Step 1 output:")
 print(bank_word)
+print(bank_word.pretty_format())
 print()
 
 other_bank_word = Word("bank")

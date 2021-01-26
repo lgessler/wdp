@@ -5,6 +5,7 @@ TODO
 import logging
 import os
 import pickle
+from pprint import pformat
 from zipfile import ZipFile
 from typing import List
 
@@ -37,6 +38,9 @@ class _ToDictMixin:
                 d[k] = v if not hasattr(v, "to_dict") else v.to_dict()
 
         return d
+
+    def pretty_format(self):
+        return pformat(self.to_dict())
 
 
 class AlternateForm(_DefaultReprMixin, _ToDictMixin):
