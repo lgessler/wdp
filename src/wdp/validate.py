@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import re
 import logging
 from typing import List
 
@@ -9,7 +10,8 @@ _logger = logging.getLogger(__name__)
 
 
 def _warn(word, msg):
-    _logger.warning(f"[Warning] {word.word_form}: {msg}")
+    indented_word = "\n".join(re.sub(r'^', '    ', line) for line in word.pretty_format().split("\n"))
+    _logger.warning(f"[WARNING] {word.word_form}: {msg}\nFull Word:\n{indented_word}")
 
 
 class WordValidationException(BaseException):
@@ -44,7 +46,7 @@ def _valid_part_of_speech(word: Word):
 @test
 def _ipa_is_bracketed(word: Word):
     for p in word.pronunciations:
-        if p.notation.lower() != "ipa":
+        if isinstance(p.notation, str) and p.notation.lower() != "ipa":
             continue
         pp = p.pronunciation.strip()
         if not ((pp[0] == "/" and pp[-1] == "/") or (pp[0] == "[" and pp[-1] == "]")):
@@ -52,6 +54,20 @@ def _ipa_is_bracketed(word: Word):
                 word,
                 f"IPA should be surrounded by [square brackets] for phonetic transcription or /forward "
                 "slashes/ for phonemic transcription",
+            )
+
+
+@test
+def _not_marked_as_ipa(word: Word):
+    for p in word.pronunciations:
+        if isinstance(p.notation, str) and p.notation.lower() == "ipa":
+            continue
+        pp = p.pronunciation.strip()
+        if (pp[0] == "/" and pp[-1] == "/") or (pp[0] == "[" and pp[-1] == "]"):
+            _warn(
+                word,
+                f"Pronunciation is bracketed but not marked as IPA. If this pronunciation is in IPA,"
+                f" please set notation to \"IPA\".",
             )
 
 

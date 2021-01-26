@@ -13,10 +13,10 @@ ENTRY_TEMPLATE = Template(
         {{ section(2, "Etymology " ~ loop.index) }}
     {% endif %}
 
-    {% if word['alternate_forms'] %}
+    {% if word['alternative_forms'] %}
         {{ section(3, "Alternative forms") }}
-        {% for form in word['alternate_forms'] %}
-            * {{LL}}alter|{{lang_code}}|{{form.alternate_form}}||{{form.description_of_use}}{{RR}}
+        {% for form in word['alternative_forms'] %}
+            * {{LL}}alter|{{lang_code}}|{{form.alternative_form}}||{{form.description_of_use}}{{RR}}
         {% endfor %}
     {% endif %}
     
@@ -52,6 +52,21 @@ ENTRY_TEMPLATE = Template(
     {% if word['usage_notes'] %}
       {{ section(3, "Usage notes") }}
       {{ word['usage_notes'] }}
+    {% endif %}
+    
+    {% if word['conjugation'] %}
+      {{ section(3, "Conjugation") }}
+      {{ word['conjugation'] }}
+    {% endif %}
+    
+    {% if word['declension'] %}
+      {{ section(3, "Declension") }}
+      {{ word['declension'] }}
+    {% endif %}
+    
+    {% if word['inflection'] %}
+      {{ section(3, "Inflection") }}
+      {{ word['inflection'] }}
     {% endif %}
     
     {% if word['references'] %}
