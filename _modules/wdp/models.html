@@ -1,0 +1,321 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>wdp.models &#8212; wdp unknown documentation</title>
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for wdp.models</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">TODO</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pformat</span>
+<span class="kn">from</span> <span class="nn">zipfile</span> <span class="kn">import</span> <span class="n">ZipFile</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+<span class="n">_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">_DefaultReprMixin</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Internal mixin class that provides a __repr__ implementation that shows all non-callable attrs&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">class_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">data_string</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">+</span> <span class="p">(</span><span class="s1">&#39;&quot;&#39;</span> <span class="o">+</span> <span class="n">v</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">callable</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="ow">and</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">class_name</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="n">data_string</span><span class="si">}</span><span class="s2">)&quot;</span>
+
+
+<span class="k">class</span> <span class="nc">_ToDictMixin</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return all non-callable attributes in this Entry object as a dictionary recursively&quot;&quot;&quot;</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;__class__&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">}</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                <span class="n">d</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">v2</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">v2</span><span class="p">,</span> <span class="s2">&quot;to_dict&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="n">v2</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">v2</span> <span class="ow">in</span> <span class="n">v</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">d</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="s2">&quot;to_dict&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="n">v</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">d</span>
+
+    <span class="k">def</span> <span class="nf">pretty_format</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">pformat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+
+
+<div class="viewcode-block" id="AlternativeForm"><a class="viewcode-back" href="../../api/wdp.html#wdp.models.AlternativeForm">[docs]</a><span class="k">class</span> <span class="nc">AlternativeForm</span><span class="p">(</span><span class="n">_DefaultReprMixin</span><span class="p">,</span> <span class="n">_ToDictMixin</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alternative_form</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">description_of_use</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alternative_form</span> <span class="o">=</span> <span class="n">alternative_form</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">description_of_use</span> <span class="o">=</span> <span class="n">description_of_use</span></div>
+
+
+<div class="viewcode-block" id="Pronunciation"><a class="viewcode-back" href="../../api/wdp.html#wdp.models.Pronunciation">[docs]</a><span class="k">class</span> <span class="nc">Pronunciation</span><span class="p">(</span><span class="n">_DefaultReprMixin</span><span class="p">,</span> <span class="n">_ToDictMixin</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pronunciation</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">notation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pronunciation</span> <span class="o">=</span> <span class="n">pronunciation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">notation</span> <span class="o">=</span> <span class="n">notation</span></div>
+
+
+<div class="viewcode-block" id="Definition"><a class="viewcode-back" href="../../api/wdp.html#wdp.models.Definition">[docs]</a><span class="k">class</span> <span class="nc">Definition</span><span class="p">(</span><span class="n">_DefaultReprMixin</span><span class="p">,</span> <span class="n">_ToDictMixin</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">definition</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">part_of_speech</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">definition</span> <span class="o">=</span> <span class="n">definition</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">part_of_speech</span> <span class="o">=</span> <span class="n">part_of_speech</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Word"><a class="viewcode-back" href="../../api/wdp.html#wdp.models.Word">[docs]</a><span class="k">class</span> <span class="nc">Word</span><span class="p">(</span><span class="n">_DefaultReprMixin</span><span class="p">,</span> <span class="n">_ToDictMixin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An object that represents a single &quot;word&quot;. If two or more Word objects have the same</span>
+<span class="sd">    word_form attribute, their information will appear under separate headings &quot;Etymology 1&quot;,</span>
+<span class="sd">    &quot;Etymology 2&quot;, etc. (see for instance: https://en.wiktionary.org/wiki/graft#English).</span>
+
+<span class="sd">    Information is added to the object by using the methods beginning with `add_` and `set_`.</span>
+<span class="sd">    String arguments of these methods may contain wikitext markup in case you want to use it to</span>
+<span class="sd">    e.g. link to other entries using the [[square bracket]] notation. For more information, see:</span>
+<span class="sd">    https://en.wikipedia.org/wiki/Help:Wikitext</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">word_form</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a Word object. `word_form` will be used to determine the URL of this word&#39;s</span>
+<span class="sd">        entry on Wiktionary: for example, a Word object with word_form &quot;graft&quot; in English would</span>
+<span class="sd">        appear at &quot;https://en.wiktionary.org/wiki/graft&quot;.</span>
+
+<span class="sd">        :param word_form: A canonical orthographic representation of a word.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">word_form</span> <span class="o">=</span> <span class="n">word_form</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">definitions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alternative_forms</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pronunciations</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">etymology</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">references</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">usage_notes</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">declension</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conjugation</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inflection</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="Word.add_definition"><a class="viewcode-back" href="../../api/wdp.html#wdp.models.Word.add_definition">[docs]</a>    <span class="k">def</span> <span class="nf">add_definition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">definition</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">part_of_speech</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a definition of this word. A valid part of speech or other lexical categorization is required.</span>
+<span class="sd">        Part of speech should come from a list of approved parts of speech on Wiktionary if possible:</span>
+<span class="sd">        https://en.wiktionary.org/wiki/Wiktionary:Entry_layout#Part_of_speech</span>
+
+<span class="sd">        :param definition: Freetext explaining one meaning of the word.</span>
+<span class="sd">        :param part_of_speech: a lexical categorization of the word that this definition occurs with</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">definitions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Definition</span><span class="p">(</span><span class="n">definition</span><span class="p">,</span> <span class="n">part_of_speech</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Word.add_alternative_form"><a class="viewcode-back" href="../../api/wdp.html#wdp.models.Word.add_alternative_form">[docs]</a>    <span class="k">def</span> <span class="nf">add_alternative_form</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alternative_form</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">description_of_use</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add an alternative representation of this word in case there are e.g. variant spellings or</span>
+<span class="sd">        different orthographies. This is NOT for IPA or other kinds of pronunciation guides--</span>
+<span class="sd">        use `add_pronunciation` for that instead.</span>
+
+<span class="sd">        :param alternative_form: a string with the alternative representation of the word</span>
+<span class="sd">        :param description_of_use: e.g. &quot;Chiefly British&quot;, &quot;Romaji&quot;, &quot;Cyrillic&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alternative_forms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">AlternativeForm</span><span class="p">(</span><span class="n">alternative_form</span><span class="p">,</span> <span class="n">description_of_use</span><span class="o">=</span><span class="n">description_of_use</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Word.add_pronunciation"><a class="viewcode-back" href="../../api/wdp.html#wdp.models.Word.add_pronunciation">[docs]</a>    <span class="k">def</span> <span class="nf">add_pronunciation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pronunciation</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">notation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a representation of the word that indicates its pronunciation. For IPA, you MUST surround</span>
+<span class="sd">        it with either [square brackets] or /forward slashes/ to indicate whether it is phonemic or</span>
+<span class="sd">        phonetic and you MUST set notation to &quot;IPA&quot;</span>
+
+<span class="sd">        :param pronunciation: a string that represents the word&#39;s pronunciation</span>
+<span class="sd">        :param notation: a short description of the notation the pronunciation is given in. Use &quot;IPA&quot; if in IPA.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pronunciations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Pronunciation</span><span class="p">(</span><span class="n">pronunciation</span><span class="p">,</span> <span class="n">notation</span><span class="o">=</span><span class="n">notation</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Word.set_etymology"><a class="viewcode-back" href="../../api/wdp.html#wdp.models.Word.set_etymology">[docs]</a>    <span class="k">def</span> <span class="nf">set_etymology</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">etymology</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Provide an etymological note for the word.</span>
+
+<span class="sd">        :param etymology: Freetext explaining the word&#39;s etymology.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">etymology</span> <span class="o">=</span> <span class="n">etymology</span></div>
+
+<div class="viewcode-block" id="Word.set_description"><a class="viewcode-back" href="../../api/wdp.html#wdp.models.Word.set_description">[docs]</a>    <span class="k">def</span> <span class="nf">set_description</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Provide a description for the word. Used mostly for symbols. See: </span>
+<span class="sd">        https://en.wiktionary.org/wiki/Wiktionary:Entry_layout#Description</span>
+
+<span class="sd">        :param description: Freetext describing the word.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">description</span></div>
+
+<div class="viewcode-block" id="Word.set_references"><a class="viewcode-back" href="../../api/wdp.html#wdp.models.Word.set_references">[docs]</a>    <span class="k">def</span> <span class="nf">set_references</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">references</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Provide references for the information in this Word.</span>
+
+<span class="sd">        :param references: Freetext containing references.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">references</span> <span class="o">=</span> <span class="n">references</span></div>
+
+<div class="viewcode-block" id="Word.set_usage_notes"><a class="viewcode-back" href="../../api/wdp.html#wdp.models.Word.set_usage_notes">[docs]</a>    <span class="k">def</span> <span class="nf">set_usage_notes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">usage_notes</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Provide notes on how the word is used with respect to e.g. formality and other social dimensions.</span>
+
+<span class="sd">        :param usage_notes: Freetext containing a usage note.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">usage_notes</span> <span class="o">=</span> <span class="n">usage_notes</span></div>
+
+<div class="viewcode-block" id="Word.set_declension"><a class="viewcode-back" href="../../api/wdp.html#wdp.models.Word.set_declension">[docs]</a>    <span class="k">def</span> <span class="nf">set_declension</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">declension</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Provide declensional information for the word. Only use this for nouns--see `set_conjugation`</span>
+<span class="sd">        for verbs and `set_inflection` for all other lexical classes.</span>
+
+<span class="sd">        :param declension: Freetext describing the noun&#39;s declension.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">declension</span> <span class="o">=</span> <span class="n">declension</span></div>
+
+<div class="viewcode-block" id="Word.set_conjugation"><a class="viewcode-back" href="../../api/wdp.html#wdp.models.Word.set_conjugation">[docs]</a>    <span class="k">def</span> <span class="nf">set_conjugation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conjugation</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Provide conjugational information for the word. Only use this for verbs--see `set_declension`</span>
+<span class="sd">        for nouns and `set_inflection` for all other lexical classes.</span>
+
+<span class="sd">        :param conjugation: Freetext describing the verb&#39;s conjugation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conjugation</span> <span class="o">=</span> <span class="n">conjugation</span></div>
+
+<div class="viewcode-block" id="Word.set_inflection"><a class="viewcode-back" href="../../api/wdp.html#wdp.models.Word.set_inflection">[docs]</a>    <span class="k">def</span> <span class="nf">set_inflection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inflection</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Provide inflecitonal information for the word. Only use this if the word is not a noun or a verb.</span>
+<span class="sd">        For nouns, see `set_declension`, and for verbs, see `set_inflection`.</span>
+
+<span class="sd">        :param inflection: Freetext describing the word&#39;s inflection.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inflection</span> <span class="o">=</span> <span class="n">inflection</span></div></div>
+
+
+<div class="viewcode-block" id="export_words"><a class="viewcode-back" href="../../api/wdp.html#wdp.models.export_words">[docs]</a><span class="k">def</span> <span class="nf">export_words</span><span class="p">(</span><span class="n">words</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Word</span><span class="p">],</span> <span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Export a list of words to a .zip file for sharing with someone who can upload the data to Wiktionary.</span>
+
+<span class="sd">    :param words: A list of `Word` objects that have had their information filled out.</span>
+<span class="sd">    :param filepath: A location to write the export .zip file to.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">filepath</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:]</span> <span class="o">!=</span> <span class="s2">&quot;.zip&quot;</span><span class="p">:</span>
+        <span class="n">filepath</span> <span class="o">+=</span> <span class="s2">&quot;.zip&quot;</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">writestr</span><span class="p">(</span><span class="s1">&#39;words.pkl&#39;</span><span class="p">,</span> <span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">words</span><span class="p">))</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Wrote words to </span><span class="si">{</span><span class="n">filepath</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="import_words"><a class="viewcode-back" href="../../api/wdp.html#wdp.models.import_words">[docs]</a><span class="k">def</span> <span class="nf">import_words</span><span class="p">(</span><span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Word</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read a list of `Word` objects from a file produced by `export_words`.</span>
+
+<span class="sd">    :param filepath: Location of the zip</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File &#39;</span><span class="si">{</span><span class="n">filepath</span><span class="si">}</span><span class="s2">&#39; does not exist.&quot;</span><span class="p">)</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+    <span class="n">words</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;words.pkl&#39;</span><span class="p">))</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">words</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">wdp</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/modules.html">Module Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Luke Gessler.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

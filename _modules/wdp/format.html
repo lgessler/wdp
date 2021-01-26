@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>wdp.format &#8212; wdp unknown documentation</title>
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for wdp.format</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">wdp.models</span> <span class="kn">import</span> <span class="n">Word</span>
+<span class="kn">from</span> <span class="nn">jinja2</span> <span class="kn">import</span> <span class="n">Template</span>
+
+<span class="c1"># TODO: add IPA handling e.g. {{IPA|en|foo|bar}}</span>
+<span class="kn">from</span> <span class="nn">wdp.validate</span> <span class="kn">import</span> <span class="n">validate_word</span>
+
+<span class="n">ENTRY_TEMPLATE</span> <span class="o">=</span> <span class="n">Template</span><span class="p">(</span>
+    <span class="sd">&quot;&quot;&quot;=={{lang_name}}==</span>
+<span class="sd">{% for word in words %}</span>
+<span class="sd">    {% if words|length &gt; 1 %}</span>
+<span class="sd">        {{ section(2, &quot;Etymology &quot; ~ loop.index) }}</span>
+<span class="sd">    {% endif %}</span>
+
+<span class="sd">    {% if word[&#39;alternative_forms&#39;] %}</span>
+<span class="sd">        {{ section(3, &quot;Alternative forms&quot;) }}</span>
+<span class="sd">        {% for form in word[&#39;alternative_forms&#39;] %}</span>
+<span class="sd">            * {{LL}}alter|{{lang_code}}|{{form.alternative_form}}||{{form.description_of_use}}{{RR}}</span>
+<span class="sd">        {% endfor %}</span>
+<span class="sd">    {% endif %}</span>
+<span class="sd">    </span>
+<span class="sd">    {% if word[&#39;description&#39;] %}</span>
+<span class="sd">      {{ section(3, &quot;Description&quot;) }}</span>
+<span class="sd">      {{ word[&#39;description&#39;] }}</span>
+<span class="sd">    {% endif %}</span>
+<span class="sd">    </span>
+<span class="sd">    {% if word[&#39;etymology&#39;] %}</span>
+<span class="sd">      {{ section(3, &quot;Etymology&quot;) }}</span>
+<span class="sd">      {{ word[&#39;etymology&#39;] }}</span>
+<span class="sd">    {% endif %}</span>
+
+<span class="sd">    {% if word[&#39;pronunciation&#39;] %}</span>
+<span class="sd">        {{ section(3, &quot;Pronunciation&quot;) }}</span>
+<span class="sd">        {% for pronunciation in word[&#39;pronunciations&#39;] %}</span>
+<span class="sd">            {% if pronunciation.notation|lower == &quot;ipa&quot; %}</span>
+<span class="sd">                * {{LL}}IPA|{{lang_code}}|{{pronunciation.pronunciation}}{{RR}}</span>
+<span class="sd">            {% else %}</span>
+<span class="sd">                * {{pronunciation.pronunciation}}</span>
+<span class="sd">            {% endif %}</span>
+<span class="sd">        {% endfor %}</span>
+<span class="sd">    {% endif %}</span>
+
+<span class="sd">    {% for pos in word[&quot;grouped_definitions&quot;] %}</span>
+<span class="sd">        {{ section(3, pos) }}</span>
+<span class="sd">        {{LL}}head|{{lang_code}}|{{pos}}{{RR}}</span>
+<span class="sd">        {% for definition in word[&quot;grouped_definitions&quot;][pos] %} </span>
+<span class="sd">            # {{definition.definition}}</span>
+<span class="sd">        {% endfor %}</span>
+<span class="sd">    {% endfor %}</span>
+<span class="sd">    </span>
+<span class="sd">    {% if word[&#39;usage_notes&#39;] %}</span>
+<span class="sd">      {{ section(3, &quot;Usage notes&quot;) }}</span>
+<span class="sd">      {{ word[&#39;usage_notes&#39;] }}</span>
+<span class="sd">    {% endif %}</span>
+<span class="sd">    </span>
+<span class="sd">    {% if word[&#39;conjugation&#39;] %}</span>
+<span class="sd">      {{ section(3, &quot;Conjugation&quot;) }}</span>
+<span class="sd">      {{ word[&#39;conjugation&#39;] }}</span>
+<span class="sd">    {% endif %}</span>
+<span class="sd">    </span>
+<span class="sd">    {% if word[&#39;declension&#39;] %}</span>
+<span class="sd">      {{ section(3, &quot;Declension&quot;) }}</span>
+<span class="sd">      {{ word[&#39;declension&#39;] }}</span>
+<span class="sd">    {% endif %}</span>
+<span class="sd">    </span>
+<span class="sd">    {% if word[&#39;inflection&#39;] %}</span>
+<span class="sd">      {{ section(3, &quot;Inflection&quot;) }}</span>
+<span class="sd">      {{ word[&#39;inflection&#39;] }}</span>
+<span class="sd">    {% endif %}</span>
+<span class="sd">    </span>
+<span class="sd">    {% if word[&#39;references&#39;] %}</span>
+<span class="sd">      {{ section(3, &quot;References&quot;) }}</span>
+<span class="sd">      {{ word[&#39;references&#39;] }}</span>
+<span class="sd">    {% endif %}</span>
+<span class="sd">{% endfor %}</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="group_definitions_by_pos"><a class="viewcode-back" href="../../api/wdp.html#wdp.format.group_definitions_by_pos">[docs]</a><span class="k">def</span> <span class="nf">group_definitions_by_pos</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a dict mapping from part of speech to a list of all the definitions with that part of speech.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">definitions</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;definitions&quot;</span><span class="p">]</span>
+    <span class="n">parts_of_speech</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">definition</span><span class="p">[</span><span class="s2">&quot;part_of_speech&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">definition</span> <span class="ow">in</span> <span class="n">definitions</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="n">pos</span><span class="o">.</span><span class="n">capitalize</span><span class="p">():</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">definitions</span> <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;part_of_speech&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pos</span><span class="p">]</span> <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">parts_of_speech</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="format_entry"><a class="viewcode-back" href="../../api/wdp.html#wdp.format.format_entry">[docs]</a><span class="k">def</span> <span class="nf">format_entry</span><span class="p">(</span><span class="n">word_group</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Word</span><span class="p">],</span> <span class="n">lang_code</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lang_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Turn a list of Word objects into Wikitext.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># the dict we will use to render the jinja template</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">lang_code</span><span class="o">=</span><span class="n">lang_code</span><span class="p">,</span>
+        <span class="n">lang_name</span><span class="o">=</span><span class="n">lang_name</span><span class="p">,</span>
+        <span class="n">words</span><span class="o">=</span><span class="p">[],</span>
+    <span class="p">)</span>
+
+    <span class="c1"># iterate over Word objects</span>
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">word_group</span><span class="p">:</span>
+        <span class="n">word_context</span> <span class="o">=</span> <span class="n">word</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+        <span class="c1"># a Word will in general have many definitions with different parts of speech--separate them</span>
+        <span class="n">word_context</span><span class="p">[</span><span class="s2">&quot;grouped_definitions&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">group_definitions_by_pos</span><span class="p">(</span><span class="n">word_context</span><span class="p">)</span>
+        <span class="n">context</span><span class="p">[</span><span class="s2">&quot;words&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word_context</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">section</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Formats string according to whether there is more than one word group or not.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            depth:   the level the section has in an entry with a single etymology</span>
+<span class="sd">            content: a string to be displayed in a header</span>
+
+<span class="sd">        Returns: Formatted section header</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">word_group</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="p">(</span><span class="n">depth</span> <span class="o">+</span> <span class="n">c</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">s</span> <span class="o">+</span> <span class="n">content</span> <span class="o">+</span> <span class="n">s</span>
+
+    <span class="n">output</span> <span class="o">=</span> <span class="n">ENTRY_TEMPLATE</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="n">section</span><span class="p">,</span> <span class="n">LL</span><span class="o">=</span><span class="s2">&quot;{{&quot;</span><span class="p">,</span> <span class="n">RR</span><span class="o">=</span><span class="s2">&quot;}}&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">context</span><span class="p">)</span>
+    <span class="c1"># undo formatting that made the jinja template easier to read</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^ +&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">output</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">))</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\n\n+#&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">#&quot;</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;=\n+=&quot;</span><span class="p">,</span> <span class="s2">&quot;=</span><span class="se">\n</span><span class="s2">=&quot;</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\n\n+&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;===\n\n&quot;</span><span class="p">,</span> <span class="s2">&quot;===</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">word_group</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">word_form</span><span class="p">,</span> <span class="n">output</span></div>
+
+
+<div class="viewcode-block" id="group_words"><a class="viewcode-back" href="../../api/wdp.html#wdp.format.group_words">[docs]</a><span class="k">def</span> <span class="nf">group_words</span><span class="p">(</span><span class="n">words</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Word</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Word</span><span class="p">]]:</span>
+    <span class="sd">&quot;&quot;&quot; Group words based on their word_form attribute &quot;&quot;&quot;</span>
+    <span class="n">word_forms</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">word_form</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[[</span><span class="n">w</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span> <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">word_form</span> <span class="o">==</span> <span class="n">word_form</span><span class="p">]</span> <span class="k">for</span> <span class="n">word_form</span> <span class="ow">in</span> <span class="n">word_forms</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="format_entries"><a class="viewcode-back" href="../../api/wdp.html#wdp.format.format_entries">[docs]</a><span class="k">def</span> <span class="nf">format_entries</span><span class="p">(</span><span class="n">words</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Word</span><span class="p">],</span> <span class="n">lang_code</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lang_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+        <span class="n">validate_word</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+    <span class="n">grouped_words</span> <span class="o">=</span> <span class="n">group_words</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+    <span class="n">formatted_entries</span> <span class="o">=</span> <span class="p">[</span><span class="n">format_entry</span><span class="p">(</span><span class="n">word_group</span><span class="p">,</span> <span class="n">lang_code</span><span class="p">,</span> <span class="n">lang_name</span><span class="p">)</span> <span class="k">for</span> <span class="n">word_group</span> <span class="ow">in</span> <span class="n">grouped_words</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">formatted_entries</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">wdp</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/modules.html">Module Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Luke Gessler.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

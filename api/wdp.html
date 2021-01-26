@@ -1,0 +1,369 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>wdp package &#8212; wdp unknown documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="wdp" href="modules.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="wdp-package">
+<h1>wdp package<a class="headerlink" href="#wdp-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-wdp.const">
+<span id="wdp-const-module"></span><h2>wdp.const module<a class="headerlink" href="#module-wdp.const" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-wdp.format">
+<span id="wdp-format-module"></span><h2>wdp.format module<a class="headerlink" href="#module-wdp.format" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="wdp.format.format_entries">
+<code class="sig-prename descclassname">wdp.format.</code><code class="sig-name descname">format_entries</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">words</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference internal" href="#wdp.models.Word" title="wdp.models.Word">wdp.models.Word</a><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">lang_code</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em>, <em class="sig-param"><span class="n">lang_name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>Tuple<span class="p">[</span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span><span class="p">]</span><a class="reference internal" href="../_modules/wdp/format.html#format_entries"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wdp.format.format_entries" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="wdp.format.format_entry">
+<code class="sig-prename descclassname">wdp.format.</code><code class="sig-name descname">format_entry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">word_group</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference internal" href="#wdp.models.Word" title="wdp.models.Word">wdp.models.Word</a><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">lang_code</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em>, <em class="sig-param"><span class="n">lang_name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span><a class="reference internal" href="../_modules/wdp/format.html#format_entry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wdp.format.format_entry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turn a list of Word objects into Wikitext.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="wdp.format.group_definitions_by_pos">
+<code class="sig-prename descclassname">wdp.format.</code><code class="sig-name descname">group_definitions_by_pos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">context</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wdp/format.html#group_definitions_by_pos"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wdp.format.group_definitions_by_pos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dict mapping from part of speech to a list of all the definitions with that part of speech.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="wdp.format.group_words">
+<code class="sig-prename descclassname">wdp.format.</code><code class="sig-name descname">group_words</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">words</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference internal" href="#wdp.models.Word" title="wdp.models.Word">wdp.models.Word</a><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>List<span class="p">[</span><a class="reference internal" href="#wdp.models.Word" title="wdp.models.Word">wdp.models.Word</a><span class="p">]</span><span class="p">]</span><a class="reference internal" href="../_modules/wdp/format.html#group_words"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wdp.format.group_words" title="Permalink to this definition">¶</a></dt>
+<dd><p>Group words based on their word_form attribute</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-wdp.models">
+<span id="wdp-models-module"></span><h2>wdp.models module<a class="headerlink" href="#module-wdp.models" title="Permalink to this headline">¶</a></h2>
+<p>TODO</p>
+<dl class="py class">
+<dt id="wdp.models.AlternativeForm">
+<em class="property">class </em><code class="sig-prename descclassname">wdp.models.</code><code class="sig-name descname">AlternativeForm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">alternative_form</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em>, <em class="sig-param"><span class="n">description_of_use</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wdp/models.html#AlternativeForm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wdp.models.AlternativeForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wdp.models._DefaultReprMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">wdp.models._ToDictMixin</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="wdp.models.Definition">
+<em class="property">class </em><code class="sig-prename descclassname">wdp.models.</code><code class="sig-name descname">Definition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">definition</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em>, <em class="sig-param"><span class="n">part_of_speech</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wdp/models.html#Definition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wdp.models.Definition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wdp.models._DefaultReprMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">wdp.models._ToDictMixin</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="wdp.models.Pronunciation">
+<em class="property">class </em><code class="sig-prename descclassname">wdp.models.</code><code class="sig-name descname">Pronunciation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pronunciation</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em>, <em class="sig-param"><span class="n">notation</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wdp/models.html#Pronunciation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wdp.models.Pronunciation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wdp.models._DefaultReprMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">wdp.models._ToDictMixin</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="wdp.models.Word">
+<em class="property">class </em><code class="sig-prename descclassname">wdp.models.</code><code class="sig-name descname">Word</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">word_form</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wdp/models.html#Word"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wdp.models.Word" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wdp.models._DefaultReprMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">wdp.models._ToDictMixin</span></code></p>
+<p>An object that represents a single “word”. If two or more Word objects have the same
+word_form attribute, their information will appear under separate headings “Etymology 1”,
+“Etymology 2”, etc. (see for instance: <a class="reference external" href="https://en.wiktionary.org/wiki/graft#English">https://en.wiktionary.org/wiki/graft#English</a>).</p>
+<p>Information is added to the object by using the methods beginning with <cite>add_</cite> and <cite>set_</cite>.
+String arguments of these methods may contain wikitext markup in case you want to use it to
+e.g. link to other entries using the [[square bracket]] notation. For more information, see:
+<a class="reference external" href="https://en.wikipedia.org/wiki/Help:Wikitext">https://en.wikipedia.org/wiki/Help:Wikitext</a></p>
+<dl class="py method">
+<dt id="wdp.models.Word.add_alternative_form">
+<code class="sig-name descname">add_alternative_form</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">alternative_form</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em>, <em class="sig-param"><span class="n">description_of_use</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wdp/models.html#Word.add_alternative_form"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wdp.models.Word.add_alternative_form" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an alternative representation of this word in case there are e.g. variant spellings or
+different orthographies. This is NOT for IPA or other kinds of pronunciation guides–
+use <cite>add_pronunciation</cite> for that instead.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alternative_form</strong> – a string with the alternative representation of the word</p></li>
+<li><p><strong>description_of_use</strong> – e.g. “Chiefly British”, “Romaji”, “Cyrillic”</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wdp.models.Word.add_definition">
+<code class="sig-name descname">add_definition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">definition</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em>, <em class="sig-param"><span class="n">part_of_speech</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wdp/models.html#Word.add_definition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wdp.models.Word.add_definition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a definition of this word. A valid part of speech or other lexical categorization is required.
+Part of speech should come from a list of approved parts of speech on Wiktionary if possible:
+<a class="reference external" href="https://en.wiktionary.org/wiki/Wiktionary:Entry_layout#Part_of_speech">https://en.wiktionary.org/wiki/Wiktionary:Entry_layout#Part_of_speech</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>definition</strong> – Freetext explaining one meaning of the word.</p></li>
+<li><p><strong>part_of_speech</strong> – a lexical categorization of the word that this definition occurs with</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wdp.models.Word.add_pronunciation">
+<code class="sig-name descname">add_pronunciation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pronunciation</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em>, <em class="sig-param"><span class="n">notation</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wdp/models.html#Word.add_pronunciation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wdp.models.Word.add_pronunciation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a representation of the word that indicates its pronunciation. For IPA, you MUST surround
+it with either [square brackets] or /forward slashes/ to indicate whether it is phonemic or
+phonetic and you MUST set notation to “IPA”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pronunciation</strong> – a string that represents the word’s pronunciation</p></li>
+<li><p><strong>notation</strong> – a short description of the notation the pronunciation is given in. Use “IPA” if in IPA.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wdp.models.Word.set_conjugation">
+<code class="sig-name descname">set_conjugation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">conjugation</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wdp/models.html#Word.set_conjugation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wdp.models.Word.set_conjugation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provide conjugational information for the word. Only use this for verbs–see <cite>set_declension</cite>
+for nouns and <cite>set_inflection</cite> for all other lexical classes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>conjugation</strong> – Freetext describing the verb’s conjugation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wdp.models.Word.set_declension">
+<code class="sig-name descname">set_declension</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">declension</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wdp/models.html#Word.set_declension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wdp.models.Word.set_declension" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provide declensional information for the word. Only use this for nouns–see <cite>set_conjugation</cite>
+for verbs and <cite>set_inflection</cite> for all other lexical classes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>declension</strong> – Freetext describing the noun’s declension.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wdp.models.Word.set_description">
+<code class="sig-name descname">set_description</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">description</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wdp/models.html#Word.set_description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wdp.models.Word.set_description" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provide a description for the word. Used mostly for symbols. See:
+<a class="reference external" href="https://en.wiktionary.org/wiki/Wiktionary:Entry_layout#Description">https://en.wiktionary.org/wiki/Wiktionary:Entry_layout#Description</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>description</strong> – Freetext describing the word.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wdp.models.Word.set_etymology">
+<code class="sig-name descname">set_etymology</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">etymology</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wdp/models.html#Word.set_etymology"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wdp.models.Word.set_etymology" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provide an etymological note for the word.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>etymology</strong> – Freetext explaining the word’s etymology.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wdp.models.Word.set_inflection">
+<code class="sig-name descname">set_inflection</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">inflection</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wdp/models.html#Word.set_inflection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wdp.models.Word.set_inflection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provide inflecitonal information for the word. Only use this if the word is not a noun or a verb.
+For nouns, see <cite>set_declension</cite>, and for verbs, see <cite>set_inflection</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>inflection</strong> – Freetext describing the word’s inflection.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wdp.models.Word.set_references">
+<code class="sig-name descname">set_references</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">references</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wdp/models.html#Word.set_references"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wdp.models.Word.set_references" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provide references for the information in this Word.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>references</strong> – Freetext containing references.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wdp.models.Word.set_usage_notes">
+<code class="sig-name descname">set_usage_notes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">usage_notes</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wdp/models.html#Word.set_usage_notes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wdp.models.Word.set_usage_notes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provide notes on how the word is used with respect to e.g. formality and other social dimensions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>usage_notes</strong> – Freetext containing a usage note.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="wdp.models.export_words">
+<code class="sig-prename descclassname">wdp.models.</code><code class="sig-name descname">export_words</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">words</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference internal" href="#wdp.models.Word" title="wdp.models.Word">wdp.models.Word</a><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">filepath</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wdp/models.html#export_words"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wdp.models.export_words" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export a list of words to a .zip file for sharing with someone who can upload the data to Wiktionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>words</strong> – A list of <cite>Word</cite> objects that have had their information filled out.</p></li>
+<li><p><strong>filepath</strong> – A location to write the export .zip file to.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="wdp.models.import_words">
+<code class="sig-prename descclassname">wdp.models.</code><code class="sig-name descname">import_words</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filepath</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#wdp.models.Word" title="wdp.models.Word">wdp.models.Word</a><span class="p">]</span><a class="reference internal" href="../_modules/wdp/models.html#import_words"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wdp.models.import_words" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a list of <cite>Word</cite> objects from a file produced by <cite>export_words</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filepath</strong> – Location of the zip</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-wdp.upload">
+<span id="wdp-upload-module"></span><h2>wdp.upload module<a class="headerlink" href="#module-wdp.upload" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="wdp.upload.upload_formatted_entries">
+<code class="sig-prename descclassname">wdp.upload.</code><code class="sig-name descname">upload_formatted_entries</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">formatted_entries</span><span class="p">:</span> <span class="n">List<span class="p">[</span>Tuple<span class="p">[</span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">lang_name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em>, <em class="sig-param"><span class="n">wiktionary_language</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span> <span class="o">=</span> <span class="default_value">'en'</span></em>, <em class="sig-param"><span class="n">page_prefix</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span> <span class="o">=</span> <span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wdp/upload.html#upload_formatted_entries"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wdp.upload.upload_formatted_entries" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-wdp.validate">
+<span id="wdp-validate-module"></span><h2>wdp.validate module<a class="headerlink" href="#module-wdp.validate" title="Permalink to this headline">¶</a></h2>
+<dl class="py exception">
+<dt id="wdp.validate.WordValidationException">
+<em class="property">exception </em><code class="sig-prename descclassname">wdp.validate.</code><code class="sig-name descname">WordValidationException</code><a class="reference internal" href="../_modules/wdp/validate.html#WordValidationException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wdp.validate.WordValidationException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.8/library/exceptions.html#BaseException" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseException</span></code></a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="wdp.validate.test">
+<code class="sig-prename descclassname">wdp.validate.</code><code class="sig-name descname">test</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">f</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wdp/validate.html#test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wdp.validate.test" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="wdp.validate.validate_word">
+<code class="sig-prename descclassname">wdp.validate.</code><code class="sig-name descname">validate_word</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">word</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#wdp.models.Word" title="wdp.models.Word">wdp.models.Word</a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wdp/validate.html#validate_word"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wdp.validate.validate_word" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="wdp.validate.validate_words">
+<code class="sig-prename descclassname">wdp.validate.</code><code class="sig-name descname">validate_words</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">words</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference internal" href="#wdp.models.Word" title="wdp.models.Word">wdp.models.Word</a><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">lang_code</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em>, <em class="sig-param"><span class="n">lang_name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wdp/validate.html#validate_words"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wdp.validate.validate_words" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-wdp">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-wdp" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">wdp</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Module Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">wdp package</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">wdp</a><ul>
+      <li>Previous: <a href="modules.html" title="previous chapter">wdp</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Luke Gessler.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/api/wdp.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
