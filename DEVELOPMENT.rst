@@ -25,10 +25,10 @@ Update Docs
 .. code-block:: bash
 
     make -C docs html
-    cp -r docs/_build/html docs_dist
+    cp -r docs/_build/html tmp
     git checkout gh-pages
-    mv docs_dist/* .
-    rm -rf docs_dist/
+    mv tmp/*.html .
+    rm -rf tmp/
     git add .
     git commit -m "Update docs"
     git push
