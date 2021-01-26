@@ -10,6 +10,8 @@ Upload to PyPI
     rm -rf build/ dist/
     # tag the release
     git tag -a x.y.z -m "release notes"
+    # check the tag
+    python setup.py --version
     # build
     python setup.py bdist_wheel
     # test on testpypi
