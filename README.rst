@@ -154,6 +154,7 @@ In your main Python file, you can now use :code:`wdp.upload.upload_formatted_ent
 to perform your upload:
 
 .. code-block:: python
+
     # load your list of Words
     from wdp.upload import upload_formatted_entries
     my_english_words = [...]
