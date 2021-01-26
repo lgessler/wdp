@@ -12,4 +12,3 @@ finally:
 
 from wdp.models import Word, export_words, import_words
 from wdp.format import format_entries
-from wdp.upload import upload_formatted_entries
