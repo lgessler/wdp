@@ -1,18 +1,19 @@
 from pprint import pprint
 
-from wdp import Word, format_entries, upload_formatted_entries, export_words, import_words
+from wdp import Word, format_entries, export_words, import_words
+from wdp.upload import upload_formatted_entries
 
 # Step 1: build entries
 color_word = Word("color")
-color_word.add_alternate_form("colour", "Chiefly British")
+color_word.add_alternative_form("colour", "Chiefly British")
 color_word.add_definition("colordef", "Noun")
 
 bank_word = Word("bank")
-bank_word.add_pronunciation("beŋk", "IPA")
+bank_word.add_pronunciation("/beŋk/")
 bank_word.add_definition("A place where you put your money", "Noun")
 bank_word.add_definition("A collection of annoying things, like syntax trees", "Noun")
 bank_word.add_definition("<Imaginary verbal sense of bank>", "Verb")
-bank_word.add_alternate_form("moneyplace")
+bank_word.add_alternative_form("moneyplace")
 bank_word.set_etymology("Test etymology")
 bank_word.set_usage_notes("Test usage note")
 bank_word.set_references("Test references")
