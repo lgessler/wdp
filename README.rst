@@ -31,17 +31,17 @@ Example
 
     # Generate Wiktionary markup from our entries
     formatted_entries = format_entries(wdp_words, "en", "English")
-    # Wikitext markup for "apple":
-    # ('==English==\n'
-    #  '===Etymology===\n'
-    #  'Old English æppel < Proto-Germanic *ap(a)laz < PIE *ab(e)l-\n'
-    #  '\n'
-    #  '===Noun===\n'
-    #  '{{head|en|Noun}}\n'
-    #  '# A common, round fruit\n'
-    #  '# A tree of the genus Malus\n'
-    #  '\n')
-    #
+    # Produces an entry like the following:
+    """
+    ==English==
+    ===Etymology===
+    Old English æppel < Proto-Germanic *ap(a)laz < PIE *ab(e)l-
+    
+    ===Noun===
+    {{head|en|Noun}}
+    # A common, round fruit
+    # A tree of the genus Malus
+    """
 
     # Perform the upload
     from wdp.upload import upload_formatted_entries
