@@ -201,5 +201,6 @@ without writing any code. If there is a format you'd like us to support, please 
 
 What should I do if my language doesn't have a code?
 ----------------------------------------------------
-Contact Aryaman Arora (aa2190@georgetown.edu) or a Wiktionary admin.
+A new one can easily be created, but you will need to consult with an expert. Contact Aryaman Arora
+(aa2190@georgetown.edu) or a Wiktionary admin.
 
