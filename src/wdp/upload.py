@@ -18,13 +18,17 @@ def upload_formatted_entries(
         order = re.findall(r"(^|\n)==([^=]*?)==[\n]", page.text)
 
         if order:
+            outer_continue = False
             for _, lang in order:
                 if lang == lang_name:
                     print(f'Entry already exists for {lang_name} at "{word_form}", skipping.')
-                    return
+                    outer_continue = True
+                    break
                 elif lang > lang_name:
                     page.text = page.text.replace(f"=={lang}==", f"{entry_string}\n\n----\n\n=={lang}==")
                     break
+            if outer_continue:
+                continue
         else:
             page.text = entry_string
 
