@@ -1,7 +1,7 @@
 #!/bin/bash
 if [[ $(git diff --stat) != '' ]]; then
 	echo "Commit or discard all changes before releasing"
-	echo 1
+	exit 1
 fi
 if [ $# -eq 0 ]
 then
