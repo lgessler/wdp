@@ -2,6 +2,11 @@
 Changelog
 =========
 
+Version 0.0.4
+=============
+
+- Fix typo in Pronunciations section
+
 Version 0.0.3
 =============
 
