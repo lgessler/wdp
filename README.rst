@@ -47,8 +47,7 @@ Example
     from wdp.upload import upload_formatted_entries
     upload_formatted_entries(formatted_entries, "English")
 
-.. toctree::
- :maxdepth: 2
+.. contents:: Contents
 
 Installation
 ============
