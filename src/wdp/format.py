@@ -30,7 +30,7 @@ ENTRY_TEMPLATE = Template(
       {{ word['etymology'] }}
     {% endif %}
 
-    {% if word['pronunciation'] %}
+    {% if word['pronunciations'] %}
         {{ section(3, "Pronunciation") }}
         {% for pronunciation in word['pronunciations'] %}
             {% if pronunciation.notation|lower == "ipa" %}
