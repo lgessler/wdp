@@ -2,6 +2,14 @@
 Changelog
 =========
 
+Version 0.0.3
+=============
+
+- Uploading now continues instead of stopping completely when an entry already exists
+- Fix POS capitalization issue (`#3`_)
+
+.. _#3: https://github.com/lgessler/wdp/pull/3
+
 Version 0.0.2
 =============
 
