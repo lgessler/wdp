@@ -10,6 +10,8 @@ Upload to PyPI
     rm -rf build/ dist/
     # tag the release
     git tag -a x.y.z -m "release notes"
+    # don't forget to push the tag
+    git push origin --tags
     # check the tag
     python setup.py --version
     # build
