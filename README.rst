@@ -181,4 +181,23 @@ to perform your upload:
 FAQ
 ===
 
-TODO
+I don't know Python. Can I still use WDP?
+-----------------------------------------
+Not on your own, but please `open an issue`_ on our GitHub page explaining what your data looks like, and
+someone may be available to help you.
+
+.. _open an issue: https://github.com/lgessler/wdp/issues/new
+
+I have data in *X* format. Will WDP work with it?
+-------------------------------------------------
+Yes, WDP is agnostic as to the source format of your data.
+
+In the future, we may add support for popular formats (like `FLEx dictionary XML`_) to allow you to upload from them
+without writing any code. If there is a format you'd like us to support, please `open an issue`_.
+
+.. _FLEx dictionary XML: https://software.sil.org/fieldworks/wp-content/uploads/sites/38/2018/03/Export-options-in-Flex.pdf
+
+What should I do if my language doesn't have a code?
+----------------------------------------------------
+Contact Aryaman Arora (aa2190@georgetown.edu) or a Wiktionary admin.
+
