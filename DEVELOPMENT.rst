@@ -1,6 +1,11 @@
 Release
 =======
 
+When preparing a new release you should perform these two steps in sequence.
+See `scripts/`_.
+
+.. _scripts: https://github.com/lgessler/wdp/tree/master/scripts
+
 Upload to PyPI
 --------------
 
