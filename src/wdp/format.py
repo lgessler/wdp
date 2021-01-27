@@ -42,7 +42,7 @@ ENTRY_TEMPLATE = Template(
     {% endif %}
 
     {% for pos in word["grouped_definitions"] %}
-        {{ section(3, pos) }}
+        {{ section(3, pos.capitalize()) }}
         {{LL}}head|{{lang_code}}|{{pos}}{{RR}}
         {% for definition in word["grouped_definitions"][pos] %} 
             # {{definition.definition}}
@@ -85,7 +85,7 @@ def group_definitions_by_pos(context: dict):
     definitions = context["definitions"]
     parts_of_speech = set(definition["part_of_speech"] for definition in definitions)
 
-    return {pos.capitalize(): [d for d in definitions if d["part_of_speech"] == pos] for pos in parts_of_speech}
+    return {pos.lower(): [d for d in definitions if d["part_of_speech"] == pos] for pos in parts_of_speech}
 
 
 def format_entry(word_group: List[Word], lang_code: str, lang_name: str) -> Tuple[str, str]:
