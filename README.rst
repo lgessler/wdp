@@ -204,3 +204,8 @@ What should I do if my language doesn't have a code?
 A new one can easily be created, but you will need to consult with an expert. Contact Aryaman Arora
 (aa2190@georgetown.edu) or a Wiktionary admin.
 
+Can I update my entries once they're uploaded?
+----------------------------------------------
+Not currently, but this is a feature we'd like to support if there's demand for it. Please `open an issue`_ if you
+would like this functionality.
+
