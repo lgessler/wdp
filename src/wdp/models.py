@@ -7,7 +7,7 @@ import os
 import pickle
 from pprint import pformat
 from zipfile import ZipFile
-from typing import List
+from typing import List, Tuple, Iterable
 
 _logger = logging.getLogger(__name__)
 
@@ -103,16 +103,23 @@ class Word(_DefaultReprMixin, _ToDictMixin):
         self.conjugation = None
         self.inflection = None
 
-    def add_definition(self, definition: str, part_of_speech: str, usage_examples: list = None):
+    def add_definition(self, definition: str, part_of_speech: str, usage_examples: Iterable[Tuple[str, str]] = None):
         """
         Add a definition of this word. A valid part of speech or other lexical categorization is required.
         Part of speech should come from a list of approved parts of speech on Wiktionary if possible:
         https://en.wiktionary.org/wiki/Wiktionary:Entry_layout#Part_of_speech
         Args:
             definition: Freetext explaining one meaning of the word.
-            part_of_speech: a lexical categorization of the word that this definition occurs with 
+            part_of_speech: a lexical categorization of the word that this definition occurs with
+            usage_examples: a list of pairs of strings, where the first is the example, and the second is its translation
         """
-        self.definitions.append(Definition(definition, part_of_speech, usage_examples))
+        self.definitions.append(
+            Definition(
+                definition,
+                part_of_speech,
+                [UsageExample(ex, tr) for ex, tr in usage_examples] if usage_examples is not None else None
+            )
+        )
 
     def add_alternative_form(self, alternative_form: str, description_of_use: str = None):
         """
