@@ -8,6 +8,7 @@ from wdp.validate import validate_word
 
 ENTRY_TEMPLATE = Template(
     """=={{lang_name}}==
+
 {% for word in words %}
     {% if words|length > 1 %}
         {{ section(2, "Etymology " ~ loop.index) }}
@@ -44,8 +45,12 @@ ENTRY_TEMPLATE = Template(
     {% for pos in word["grouped_definitions"] %}
         {{ section(3, pos.capitalize()) }}
         {{LL}}head|{{lang_code}}|{{pos}}{{RR}}
+        
         {% for definition in word["grouped_definitions"][pos] %} 
             # {{definition.definition}}
+            {% for usage_example in definition.usage_examples %}
+            #: {{LL}}uxi|{{lang_code}}|{{usage_example.text}}|{{usage_example.translation}}{{RR}}
+            {% endfor %}
         {% endfor %}
     {% endfor %}
     
@@ -126,6 +131,8 @@ def format_entry(word_group: List[Word], lang_code: str, lang_name: str) -> Tupl
     output = re.sub(r"=\n+=", "=\n=", output)
     output = re.sub(r"\n\n+", "\n\n", output)
     output = re.sub(r"===\n\n", "===\n", output)
+    output = re.sub(r"=\n=", "=\n\n=", output) # tyography: an empty section should have extra newline
+    output = re.sub(r"({{head\|[^\n]*})\n#", r"\1\n\n#", output) # headword template should have extra newline after
     return word_group[0].word_form, output
 
 

@@ -56,9 +56,16 @@ class Pronunciation(_DefaultReprMixin, _ToDictMixin):
 
 
 class Definition(_DefaultReprMixin, _ToDictMixin):
-    def __init__(self, definition: str, part_of_speech: str):
+    def __init__(self, definition: str, part_of_speech: str, usage_examples: list = None):
         self.definition = definition
         self.part_of_speech = part_of_speech.capitalize()
+        self.usage_examples = usage_examples or []
+
+
+class UsageExample(_DefaultReprMixin, _ToDictMixin):
+    def __init__(self, text: str, translation: str):
+        self.text = text
+        self.translation = translation
 
 
 class Word(_DefaultReprMixin, _ToDictMixin):
@@ -96,7 +103,7 @@ class Word(_DefaultReprMixin, _ToDictMixin):
         self.conjugation = None
         self.inflection = None
 
-    def add_definition(self, definition: str, part_of_speech: str):
+    def add_definition(self, definition: str, part_of_speech: str, usage_examples: list = None):
         """
         Add a definition of this word. A valid part of speech or other lexical categorization is required.
         Part of speech should come from a list of approved parts of speech on Wiktionary if possible:
@@ -105,7 +112,7 @@ class Word(_DefaultReprMixin, _ToDictMixin):
             definition: Freetext explaining one meaning of the word.
             part_of_speech: a lexical categorization of the word that this definition occurs with 
         """
-        self.definitions.append(Definition(definition, part_of_speech))
+        self.definitions.append(Definition(definition, part_of_speech, usage_examples))
 
     def add_alternative_form(self, alternative_form: str, description_of_use: str = None):
         """

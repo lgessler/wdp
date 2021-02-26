@@ -2,6 +2,7 @@ from pprint import pprint
 
 from wdp import Word, format_entries, export_words, import_words
 from wdp.upload import upload_formatted_entries
+from wdp.models import UsageExample
 
 # Step 1: build entries
 color_word = Word("color")
@@ -10,7 +11,7 @@ color_word.add_definition("colordef", "Noun")
 
 bank_word = Word("bank")
 bank_word.add_pronunciation("/beŋk/")
-bank_word.add_definition("A place where you put your money", "Noun")
+bank_word.add_definition("A place where you put your money", "Noun", [UsageExample('I live in the bank', 'this is a translation!')])
 bank_word.add_definition("A collection of annoying things, like syntax trees", "Noun")
 bank_word.add_definition("<Imaginary verbal sense of bank>", "Verb")
 bank_word.add_alternative_form("moneyplace")

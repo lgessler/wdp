@@ -34,11 +34,13 @@ Example
     # Produces an entry like the following:
     """
     ==English==
+    
     ===Etymology===
     Old English æppel < Proto-Germanic *ap(a)laz < PIE *ab(e)l-
     
     ===Noun===
-    {{head|en|Noun}}
+    {{head|en|noun}}
+
     # A common, round fruit
     # A tree of the genus Malus
     """
