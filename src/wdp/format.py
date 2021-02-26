@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List, Tuple, Dict, Any
 import re
 from wdp.models import Word
 from jinja2 import Template
@@ -98,7 +98,7 @@ def format_entry(word_group: List[Word], lang_code: str, lang_name: str) -> Tupl
     Turn a list of Word objects into Wikitext.
     """
     # the dict we will use to render the jinja template
-    context = dict(
+    context: Dict[str, Any] = dict(
         lang_code=lang_code,
         lang_name=lang_name,
         words=[],
