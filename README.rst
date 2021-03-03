@@ -12,9 +12,11 @@ to take care of the tricky stuff for you.
 Example
 -------
 
+Using the `Word` API, enter your data:
+
 .. code-block:: python
 
-    from wdp import Word, format_entries, export_words
+    from wdp import Word
 
     # use the Word class to represent our words
     apple = Word("apple")
@@ -29,6 +31,12 @@ Example
     # put all our words in a list
     wdp_words = [apple, pear, ...]
 
+Use the `format_entries` function with your list of `Word` objects to produce Wiktionary markup:
+
+.. code-block:: python
+
+    from wdp import format_entries
+    
     # Generate Wiktionary markup from our entries
     formatted_entries = format_entries(wdp_words, "en", "English")
     # Produces an entry like the following:
@@ -45,7 +53,10 @@ Example
     # A tree of the genus Malus
     """
 
-    # Perform the upload
+Perform the upload:
+
+.. code-block:: python
+
     from wdp.upload import upload_formatted_entries
     upload_formatted_entries(formatted_entries, "English")
 
