@@ -60,6 +60,8 @@ Perform the upload:
     from wdp.upload import upload_formatted_entries
     upload_formatted_entries(formatted_entries, "English")
 
+----
+
 .. contents:: Contents
 
 Installation
