@@ -12,7 +12,7 @@ to take care of the tricky stuff for you.
 Example
 -------
 
-Using the =Word= API, enter your data:
+Using the ``Word`` API, enter your data:
 
 .. code-block:: python
 
@@ -31,7 +31,7 @@ Using the =Word= API, enter your data:
     # put all our words in a list
     wdp_words = [apple, pear, ...]
 
-Use the =format_entries= function with your list of =Word= objects to produce Wiktionary markup:
+Use the ``format_entries`` function with your list of ``Word`` objects to produce Wiktionary markup:
 
 .. code-block:: python
 
