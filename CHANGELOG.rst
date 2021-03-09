@@ -2,6 +2,10 @@
 Changelog
 =========
 
+Version 0.0.5
+=============
+- Add support for usage examples (f20fb67)
+
 Version 0.0.4
 =============
 
