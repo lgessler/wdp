@@ -2,11 +2,11 @@
 wdp: the Wiktionary Data Preparer
 =================================
 
-.. image:: https://badge.fury.io/py/wdp.svg
+.. image:: https://img.shields.io/pypi/v/wdp?style=for-the-badge
    :target: https://badge.fury.io/py/wdp
-.. image:: https://img.shields.io/pypi/dm/wdp
+.. image:: https://img.shields.io/pypi/dm/wdp?style=for-the-badge
    :target: https://pypi.org/project/wdp/
-.. image:: https://img.shields.io/pypi/l/wdp
+.. image:: https://img.shields.io/pypi/l/wdp?style=for-the-badge
    :target: https://pypi.org/project/wdp/
 
 Introduction
