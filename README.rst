@@ -19,7 +19,9 @@ to take care of the tricky stuff for you.
 Example
 -------
 
-Using the ``Word`` API, enter your data:
+Using the `Word API`_, enter your data:
+
+.. _Word API: http://lgessler.com/wdp/api/wdp.html#wdp.models.Word
 
 .. code-block:: python
 

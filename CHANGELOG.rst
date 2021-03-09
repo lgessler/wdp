@@ -4,8 +4,10 @@ Changelog
 
 Version 0.0.6
 =============
-- Add examples to docstrings for :python:`Word`
+- Add examples to docstrings for `Word`_
 - Add support for accent in pronunciations
+
+.. _Word: http://lgessler.com/wdp/api/wdp.html#wdp.models.Word
 
 Version 0.0.5
 =============
