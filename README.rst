@@ -2,6 +2,9 @@
 wdp: the Wiktionary Data Preparer
 =================================
 
+.. image:: https://badge.fury.io/py/wdp.svg
+   :target: https://badge.fury.io/py/wdp
+
 Introduction
 ============
 
