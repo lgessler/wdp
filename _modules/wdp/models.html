@@ -1,34 +1,160 @@
 
+
 <!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>wdp.models &mdash; wdp unknown documentation</title>
+  
 
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>wdp.models &#8212; wdp unknown documentation</title>
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/doctools.js"></script>
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
    
-  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  </head><body>
-  
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
           
 
-          <div class="body" role="main">
+          
+            <a href="../../index.html" class="icon icon-home"> wdp
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                unknown
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/modules.html">Module Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">wdp</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>wdp.models</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <h1>Source code for wdp.models</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
@@ -83,9 +209,10 @@
 
 
 <div class="viewcode-block" id="Pronunciation"><a class="viewcode-back" href="../../api/wdp.html#wdp.models.Pronunciation">[docs]</a><span class="k">class</span> <span class="nc">Pronunciation</span><span class="p">(</span><span class="n">_DefaultReprMixin</span><span class="p">,</span> <span class="n">_ToDictMixin</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pronunciation</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">notation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pronunciation</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">notation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">accent</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pronunciation</span> <span class="o">=</span> <span class="n">pronunciation</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">notation</span> <span class="o">=</span> <span class="n">notation</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">notation</span> <span class="o">=</span> <span class="n">notation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">accent</span> <span class="o">=</span> <span class="n">accent</span></div>
 
 
 <div class="viewcode-block" id="Definition"><a class="viewcode-back" href="../../api/wdp.html#wdp.models.Definition">[docs]</a><span class="k">class</span> <span class="nc">Definition</span><span class="p">(</span><span class="n">_DefaultReprMixin</span><span class="p">,</span> <span class="n">_ToDictMixin</span><span class="p">):</span>
@@ -141,10 +268,15 @@
 <span class="sd">        Add a definition of this word. A valid part of speech or other lexical categorization is required.</span>
 <span class="sd">        Part of speech should come from a list of approved parts of speech on Wiktionary if possible:</span>
 <span class="sd">        https://en.wiktionary.org/wiki/Wiktionary:Entry_layout#Part_of_speech</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            definition: Freetext explaining one meaning of the word.</span>
 <span class="sd">            part_of_speech: a lexical categorization of the word that this definition occurs with</span>
 <span class="sd">            usage_examples: a list of pairs of strings, where the first is the example, and the second is its translation</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; w = Word(&#39;cibum&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; w.add_definition(&#39;food&#39;, &#39;noun&#39;, usage_examples=[(&#39;canis cibum edebat.&#39;, &#39;The dog was eating.&#39;)])</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">definitions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
             <span class="n">Definition</span><span class="p">(</span>
@@ -159,28 +291,46 @@
 <span class="sd">        Add an alternative representation of this word in case there are e.g. variant spellings or</span>
 <span class="sd">        different orthographies. This is NOT for IPA or other kinds of pronunciation guides--</span>
 <span class="sd">        use `add_pronunciation` for that instead.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            alternative_form: a string with the alternative representation of the word</span>
 <span class="sd">            description_of_use: e.g. &quot;Chiefly British&quot;, &quot;Romaji&quot;, &quot;Cyrillic&quot;</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; w = Word(&#39;color&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; w.add_alternative_form(&#39;colour&#39;, description_of_use=&#39;Chiefly British&#39;)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">alternative_forms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">AlternativeForm</span><span class="p">(</span><span class="n">alternative_form</span><span class="p">,</span> <span class="n">description_of_use</span><span class="o">=</span><span class="n">description_of_use</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Word.add_pronunciation"><a class="viewcode-back" href="../../api/wdp.html#wdp.models.Word.add_pronunciation">[docs]</a>    <span class="k">def</span> <span class="nf">add_pronunciation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pronunciation</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">notation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Word.add_pronunciation"><a class="viewcode-back" href="../../api/wdp.html#wdp.models.Word.add_pronunciation">[docs]</a>    <span class="k">def</span> <span class="nf">add_pronunciation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pronunciation</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">notation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">accent</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a representation of the word that indicates its pronunciation. For IPA, you MUST surround</span>
 <span class="sd">        it with either [square brackets] or /forward slashes/ to indicate whether it is phonemic or</span>
 <span class="sd">        phonetic and you MUST set notation to &quot;IPA&quot;</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            pronunciation: a string that represents the word&#39;s pronunciation</span>
 <span class="sd">            notation: a short description of the notation the pronunciation is given in. Use &quot;IPA&quot; if in IPA.</span>
+<span class="sd">            accent: a description of the accent/regional variety/dialect of this pronunciation, if applicable</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; w = Word(&#39;bird&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; w.add_pronunciation(&quot;/bɝd/&quot;, &quot;IPA&quot;, &quot;General American&quot;)</span>
+<span class="sd">            &gt;&gt;&gt; w.add_pronunciation(&quot;/bɜːd/&quot;, &quot;IPA&quot;, &quot;Received Pronunciation&quot;)</span>
+<span class="sd">            &gt;&gt;&gt; w.add_pronunciation(&quot;/bɜɪd/&quot;, &quot;IPA&quot;, &quot;NYC&quot;)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pronunciations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Pronunciation</span><span class="p">(</span><span class="n">pronunciation</span><span class="p">,</span> <span class="n">notation</span><span class="o">=</span><span class="n">notation</span><span class="p">))</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pronunciations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Pronunciation</span><span class="p">(</span><span class="n">pronunciation</span><span class="p">,</span> <span class="n">notation</span><span class="o">=</span><span class="n">notation</span><span class="p">,</span> <span class="n">accent</span><span class="o">=</span><span class="n">accent</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Word.set_etymology"><a class="viewcode-back" href="../../api/wdp.html#wdp.models.Word.set_etymology">[docs]</a>    <span class="k">def</span> <span class="nf">set_etymology</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">etymology</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Provide an etymological note for the word.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            etymology: Freetext explaining the word&#39;s etymology.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; w = Word(&#39;werewolf&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; w.set_etymology(&#39;from wer &quot;man, male person&quot; + wulf &quot;wolf&quot;&#39;)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">etymology</span> <span class="o">=</span> <span class="n">etymology</span></div>
 
@@ -188,24 +338,40 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Provide a description for the word. Used mostly for symbols. See: </span>
 <span class="sd">        https://en.wiktionary.org/wiki/Wiktionary:Entry_layout#Description</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            description: Freetext describing the word.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; w = Word(&#39;⌛&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; w.set_description(&#39;An hourglass.&#39;)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">description</span></div>
 
 <div class="viewcode-block" id="Word.set_references"><a class="viewcode-back" href="../../api/wdp.html#wdp.models.Word.set_references">[docs]</a>    <span class="k">def</span> <span class="nf">set_references</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">references</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Provide references for the information in this Word.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            references: Freetext containing references.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; w = Word(&#39;गुरु&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; w.add_definition(&#39;master, teacher&#39;, &#39;noun&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; w.set_references(&quot;* [https://en.wikipedia.org/wiki/R._S._McGregor McGregor, Ronald Stewart] (1993) \&quot;गुरु\&quot;, in &#39;&#39;The Oxford Hindi-English Dictionary&#39;&#39;, London: Oxford University Press&quot;)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">references</span> <span class="o">=</span> <span class="n">references</span></div>
 
 <div class="viewcode-block" id="Word.set_usage_notes"><a class="viewcode-back" href="../../api/wdp.html#wdp.models.Word.set_usage_notes">[docs]</a>    <span class="k">def</span> <span class="nf">set_usage_notes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">usage_notes</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Provide notes on how the word is used with respect to e.g. formality and other social dimensions.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            usage_notes: Freetext containing a usage note.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; w = Word(&#39;hacker&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; w.set_usage_notes(&quot;* There are significantly more meanings of the word within the United States than in other English speaking nations.&quot;)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">usage_notes</span> <span class="o">=</span> <span class="n">usage_notes</span></div>
 
@@ -213,6 +379,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Provide declensional information for the word. Only use this for nouns--see `set_conjugation`</span>
 <span class="sd">        for verbs and `set_inflection` for all other lexical classes.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            declension: Freetext describing the noun&#39;s declension.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -222,6 +389,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Provide conjugational information for the word. Only use this for verbs--see `set_declension`</span>
 <span class="sd">        for nouns and `set_inflection` for all other lexical classes.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            conjugation: Freetext describing the verb&#39;s conjugation.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -231,6 +399,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Provide inflecitonal information for the word. Only use this if the word is not a noun or a verb.</span>
 <span class="sd">        For nouns, see `set_declension`, and for verbs, see `set_inflection`.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            inflection: Freetext describing the word&#39;s inflection.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -240,6 +409,7 @@
 <div class="viewcode-block" id="export_words"><a class="viewcode-back" href="../../api/wdp.html#wdp.models.export_words">[docs]</a><span class="k">def</span> <span class="nf">export_words</span><span class="p">(</span><span class="n">words</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Word</span><span class="p">],</span> <span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Export a list of words to a .zip file for sharing with someone who can upload the data to Wiktionary.</span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        words: A list of `Word` objects that have had their information filled out.</span>
 <span class="sd">        filepath: A location to write the export .zip file to.</span>
@@ -255,6 +425,7 @@
 <div class="viewcode-block" id="import_words"><a class="viewcode-back" href="../../api/wdp.html#wdp.models.import_words">[docs]</a><span class="k">def</span> <span class="nf">import_words</span><span class="p">(</span><span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Word</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Read a list of `Word` objects from a file produced by `export_words`.</span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        filepath: Location of the zip</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -266,71 +437,47 @@
     <span class="k">return</span> <span class="n">words</span></div>
 </pre></div>
 
+           </div>
+           
           </div>
-          
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Luke Gessler.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../../index.html">wdp</a></h1>
 
+    </section>
 
+  </div>
+  
 
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
 
-
-
-
-
-<h3>Navigation</h3>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Authors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api/modules.html">Module Reference</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../../index.html">Documentation overview</a><ul>
-  <li><a href="../index.html">Module code</a><ul>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2021, Luke Gessler.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-      
-    </div>
-
+  
+  
     
+   
 
-    
-  </body>
+</body>
 </html>
