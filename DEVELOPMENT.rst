@@ -1,3 +1,3 @@
-See ` ``scripts/`` `_
+See `scripts/`_
 
 .. _scripts/: scripts/
