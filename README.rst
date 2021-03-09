@@ -6,6 +6,8 @@ wdp: the Wiktionary Data Preparer
    :target: https://badge.fury.io/py/wdp
 .. image:: https://img.shields.io/pypi/dm/wdp
    :target: https://pypi.org/project/wdp/
+.. image:: https://img.shields.io/pypi/l/wdp
+   :target: https://pypi.org/project/wdp/
 
 Introduction
 ============
