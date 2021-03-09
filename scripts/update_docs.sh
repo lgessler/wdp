@@ -13,8 +13,7 @@ git checkout gh-pages
 
 # clear existing pages and copy new content
 rm -rf _modules/ _sources/ _static/ api
-mv tmp/*.html .
-mv {tmp/*.html,_modules/,_sources/,_static/,api} .
+mv tmp/{*.html,_modules/,_sources/,_static/,api} .
 # remove temp folder
 rm -rf tmp/
 # commit and push
