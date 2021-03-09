@@ -35,9 +35,9 @@ ENTRY_TEMPLATE = Template(
         {{ section(3, "Pronunciation") }}
         {% for pronunciation in word['pronunciations'] %}
             {% if pronunciation.notation|lower == "ipa" %}
-                * {{LL}}IPA|{{lang_code}}|{{pronunciation.pronunciation}}{{RR}}
+                * {% if pronunciation.accent %}{{LL}}a|{{pronunciation.accent}}{{RR}} {% endif %}{{LL}}IPA|{{lang_code}}|{{pronunciation.pronunciation}}{{RR}}
             {% else %}
-                * {{pronunciation.pronunciation}}
+                * {% if pronunciation.accent %}{{LL}}a|{{pronunciation.accent}}{{RR}} {% endif %}{{pronunciation.pronunciation}}
             {% endif %}
         {% endfor %}
     {% endif %}

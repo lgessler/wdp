@@ -50,9 +50,10 @@ class AlternativeForm(_DefaultReprMixin, _ToDictMixin):
 
 
 class Pronunciation(_DefaultReprMixin, _ToDictMixin):
-    def __init__(self, pronunciation: str, notation: str = None):
+    def __init__(self, pronunciation: str, notation: str = None, accent: str = None):
         self.pronunciation = pronunciation
         self.notation = notation
+        self.accent = accent
 
 
 class Definition(_DefaultReprMixin, _ToDictMixin):
@@ -135,10 +136,14 @@ class Word(_DefaultReprMixin, _ToDictMixin):
         Args:
             alternative_form: a string with the alternative representation of the word
             description_of_use: e.g. "Chiefly British", "Romaji", "Cyrillic"
+
+        Examples:
+            >>> w = Word('color')
+            >>> w.add_alternative_form('colour', description_of_use='Chiefly British')
         """
         self.alternative_forms.append(AlternativeForm(alternative_form, description_of_use=description_of_use))
 
-    def add_pronunciation(self, pronunciation: str, notation: str = None):
+    def add_pronunciation(self, pronunciation: str, notation: str = None, accent: str = None):
         """
         Add a representation of the word that indicates its pronunciation. For IPA, you MUST surround
         it with either [square brackets] or /forward slashes/ to indicate whether it is phonemic or
@@ -147,8 +152,15 @@ class Word(_DefaultReprMixin, _ToDictMixin):
         Args:
             pronunciation: a string that represents the word's pronunciation
             notation: a short description of the notation the pronunciation is given in. Use "IPA" if in IPA.
+            accent: a description of the accent/regional variety/dialect of this pronunciation, if applicable
+
+        Examples:
+            >>> w = Word('bird')
+            >>> w.add_pronunciation("/bɝd/", "IPA", "General American")
+            >>> w.add_pronunciation("/bɜːd/", "IPA", "Received Pronunciation")
+            >>> w.add_pronunciation("/bɜɪd/", "IPA", "NYC")
         """
-        self.pronunciations.append(Pronunciation(pronunciation, notation=notation))
+        self.pronunciations.append(Pronunciation(pronunciation, notation=notation, accent=accent))
 
     def set_etymology(self, etymology: str):
         """
@@ -156,6 +168,10 @@ class Word(_DefaultReprMixin, _ToDictMixin):
 
         Args:
             etymology: Freetext explaining the word's etymology.
+
+        Examples:
+            >>> w = Word('werewolf')
+            >>> w.set_etymology('from wer "man, male person" + wulf "wolf"')
         """
         self.etymology = etymology
 
@@ -166,6 +182,10 @@ class Word(_DefaultReprMixin, _ToDictMixin):
 
         Args:
             description: Freetext describing the word.
+
+        Examples:
+            >>> w = Word('⌛')
+            >>> w.set_description('An hourglass.')
         """
         self.description = description
 
@@ -175,6 +195,11 @@ class Word(_DefaultReprMixin, _ToDictMixin):
 
         Args:
             references: Freetext containing references.
+
+        Examples:
+            >>> w = Word('गुरु')
+            >>> w.add_definition('master, teacher', 'noun')
+            >>> w.set_references("* [https://en.wikipedia.org/wiki/R._S._McGregor McGregor, Ronald Stewart] (1993) \"गुरु\", in ''The Oxford Hindi-English Dictionary'', London: Oxford University Press")
         """
         self.references = references
 
@@ -184,6 +209,10 @@ class Word(_DefaultReprMixin, _ToDictMixin):
 
         Args:
             usage_notes: Freetext containing a usage note.
+
+        Examples:
+            >>> w = Word('hacker')
+            >>> w.set_usage_notes("* There are significantly more meanings of the word within the United States than in other English speaking nations.")
         """
         self.usage_notes = usage_notes
 
