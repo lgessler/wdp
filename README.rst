@@ -3,11 +3,11 @@ wdp: the Wiktionary Data Preparer
 =================================
 
 .. image:: https://img.shields.io/pypi/v/wdp?style=for-the-badge
-   :target: https://badge.fury.io/py/wdp
+   :target: https://pypi.org/project/wdp/
 .. image:: https://img.shields.io/pypi/dm/wdp?style=for-the-badge
    :target: https://pypi.org/project/wdp/
 .. image:: https://img.shields.io/pypi/l/wdp?style=for-the-badge
-   :target: https://pypi.org/project/wdp/
+   :target: https://github.com/lgessler/wdp/blob/master/LICENSE.txt
 
 Introduction
 ============
