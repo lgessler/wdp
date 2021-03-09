@@ -108,10 +108,15 @@ class Word(_DefaultReprMixin, _ToDictMixin):
         Add a definition of this word. A valid part of speech or other lexical categorization is required.
         Part of speech should come from a list of approved parts of speech on Wiktionary if possible:
         https://en.wiktionary.org/wiki/Wiktionary:Entry_layout#Part_of_speech
+
         Args:
             definition: Freetext explaining one meaning of the word.
             part_of_speech: a lexical categorization of the word that this definition occurs with
             usage_examples: a list of pairs of strings, where the first is the example, and the second is its translation
+
+        Examples:
+            >>> w = Word('cibum')
+            >>> w.add_definition('food', 'noun', usage_examples=[('canis cibum edebat.', 'The dog was eating.')])
         """
         self.definitions.append(
             Definition(
@@ -126,6 +131,7 @@ class Word(_DefaultReprMixin, _ToDictMixin):
         Add an alternative representation of this word in case there are e.g. variant spellings or
         different orthographies. This is NOT for IPA or other kinds of pronunciation guides--
         use `add_pronunciation` for that instead.
+
         Args:
             alternative_form: a string with the alternative representation of the word
             description_of_use: e.g. "Chiefly British", "Romaji", "Cyrillic"
@@ -137,6 +143,7 @@ class Word(_DefaultReprMixin, _ToDictMixin):
         Add a representation of the word that indicates its pronunciation. For IPA, you MUST surround
         it with either [square brackets] or /forward slashes/ to indicate whether it is phonemic or
         phonetic and you MUST set notation to "IPA"
+
         Args:
             pronunciation: a string that represents the word's pronunciation
             notation: a short description of the notation the pronunciation is given in. Use "IPA" if in IPA.
@@ -146,6 +153,7 @@ class Word(_DefaultReprMixin, _ToDictMixin):
     def set_etymology(self, etymology: str):
         """
         Provide an etymological note for the word.
+
         Args:
             etymology: Freetext explaining the word's etymology.
         """
@@ -155,6 +163,7 @@ class Word(_DefaultReprMixin, _ToDictMixin):
         """
         Provide a description for the word. Used mostly for symbols. See: 
         https://en.wiktionary.org/wiki/Wiktionary:Entry_layout#Description
+
         Args:
             description: Freetext describing the word.
         """
@@ -163,6 +172,7 @@ class Word(_DefaultReprMixin, _ToDictMixin):
     def set_references(self, references: str):
         """
         Provide references for the information in this Word.
+
         Args:
             references: Freetext containing references.
         """
@@ -171,6 +181,7 @@ class Word(_DefaultReprMixin, _ToDictMixin):
     def set_usage_notes(self, usage_notes: str):
         """
         Provide notes on how the word is used with respect to e.g. formality and other social dimensions.
+
         Args:
             usage_notes: Freetext containing a usage note.
         """
@@ -180,6 +191,7 @@ class Word(_DefaultReprMixin, _ToDictMixin):
         """
         Provide declensional information for the word. Only use this for nouns--see `set_conjugation`
         for verbs and `set_inflection` for all other lexical classes.
+
         Args:
             declension: Freetext describing the noun's declension.
         """
@@ -189,6 +201,7 @@ class Word(_DefaultReprMixin, _ToDictMixin):
         """
         Provide conjugational information for the word. Only use this for verbs--see `set_declension`
         for nouns and `set_inflection` for all other lexical classes.
+
         Args:
             conjugation: Freetext describing the verb's conjugation.
         """
@@ -198,6 +211,7 @@ class Word(_DefaultReprMixin, _ToDictMixin):
         """
         Provide inflecitonal information for the word. Only use this if the word is not a noun or a verb.
         For nouns, see `set_declension`, and for verbs, see `set_inflection`.
+
         Args:
             inflection: Freetext describing the word's inflection.
         """
@@ -207,6 +221,7 @@ class Word(_DefaultReprMixin, _ToDictMixin):
 def export_words(words: List[Word], filepath: str):
     """
     Export a list of words to a .zip file for sharing with someone who can upload the data to Wiktionary.
+
     Args:
         words: A list of `Word` objects that have had their information filled out.
         filepath: A location to write the export .zip file to.
@@ -222,6 +237,7 @@ def export_words(words: List[Word], filepath: str):
 def import_words(filepath: str) -> List[Word]:
     """
     Read a list of `Word` objects from a file produced by `export_words`.
+
     Args:
         filepath: Location of the zip
     """
