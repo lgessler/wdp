@@ -158,7 +158,7 @@ class Word(_DefaultReprMixin, _ToDictMixin):
             >>> w = Word('bird')
             >>> w.add_pronunciation("/bɝd/", "IPA", "General American")
             >>> w.add_pronunciation("/bɜːd/", "IPA", "Received Pronunciation")
-            >>> w.add_pronunciation("/bɜɪd/", "IPA", "NYC")
+            >>> w.add_pronunciation("[bɜɪd]", "IPA", "NYC")
         """
         self.pronunciations.append(Pronunciation(pronunciation, notation=notation, accent=accent))
 
