@@ -13,3 +13,4 @@ git add .
 git commit -m "Update docs"
 git push
 git checkout master
+make -C docs clean
