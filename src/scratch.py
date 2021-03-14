@@ -27,7 +27,7 @@ print()
 other_bank_word = Word("bank")
 other_bank_word.add_definition("The edges of a river", "Noun")
 other_bank_word.add_pronunciation("/pron1/", "IPA", "British")
-other_bank_word.add_pronunciation("/pron2/", "IPA", "American")
+other_bank_word.add_pronunciation("/pron2/", "IPA", "American", "en-us-bird.ogg")
 
 # Step 2: format the entries into a list of 2-tuples: first is the word's form, second is the mwtext for the word
 words = [color_word, bank_word, other_bank_word]

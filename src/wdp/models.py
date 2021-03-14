@@ -50,10 +50,11 @@ class AlternativeForm(_DefaultReprMixin, _ToDictMixin):
 
 
 class Pronunciation(_DefaultReprMixin, _ToDictMixin):
-    def __init__(self, pronunciation: str, notation: str = None, accent: str = None):
+    def __init__(self, pronunciation: str, notation: str = None, accent: str = None, audio: str = None):
         self.pronunciation = pronunciation
         self.notation = notation
         self.accent = accent
+        self.audio = audio
 
 
 class Definition(_DefaultReprMixin, _ToDictMixin):
@@ -143,7 +144,7 @@ class Word(_DefaultReprMixin, _ToDictMixin):
         """
         self.alternative_forms.append(AlternativeForm(alternative_form, description_of_use=description_of_use))
 
-    def add_pronunciation(self, pronunciation: str, notation: str = None, accent: str = None):
+    def add_pronunciation(self, pronunciation: str, notation: str = None, accent: str = None, audio: str = None):
         """
         Add a representation of the word that indicates its pronunciation. For IPA, you MUST surround
         it with either [square brackets] or /forward slashes/ to indicate whether it is phonemic or
@@ -153,14 +154,15 @@ class Word(_DefaultReprMixin, _ToDictMixin):
             pronunciation: a string that represents the word's pronunciation
             notation: a short description of the notation the pronunciation is given in. Use "IPA" if in IPA.
             accent: a description of the accent/regional variety/dialect of this pronunciation, if applicable
+            audio: the name of an audio file uploaded onto Wikimedia Commons that is a recording of this particular pronunciation
 
         Examples:
             >>> w = Word('bird')
-            >>> w.add_pronunciation("/bɝd/", "IPA", "General American")
+            >>> w.add_pronunciation("/bɝd/", "IPA", "General American", "en-us-bird.ogg")
             >>> w.add_pronunciation("/bɜːd/", "IPA", "Received Pronunciation")
             >>> w.add_pronunciation("[bɜɪd]", "IPA", "NYC")
         """
-        self.pronunciations.append(Pronunciation(pronunciation, notation=notation, accent=accent))
+        self.pronunciations.append(Pronunciation(pronunciation, notation=notation, accent=accent, audio=audio))
 
     def set_etymology(self, etymology: str):
         """

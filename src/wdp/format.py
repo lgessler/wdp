@@ -39,6 +39,9 @@ ENTRY_TEMPLATE = Template(
             {% else %}
                 * {% if pronunciation.accent %}{{LL}}a|{{pronunciation.accent}}{{RR}} {% endif %}{{pronunciation.pronunciation}}
             {% endif %}
+            {% if pronunciation.audio %}
+                ** {{LL}}audio|{{lang_code}}|{{pronunciation.audio}}{{RR}}
+            {% endif %}
         {% endfor %}
     {% endif %}
 
