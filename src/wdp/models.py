@@ -104,6 +104,7 @@ class Word(_DefaultReprMixin, _ToDictMixin):
         self.declension = None
         self.conjugation = None
         self.inflection = None
+        self.derived_terms = set()
 
     def add_definition(self, definition: str, part_of_speech: str, usage_examples: Iterable[Tuple[str, str]] = None):
         """
@@ -240,13 +241,28 @@ class Word(_DefaultReprMixin, _ToDictMixin):
 
     def set_inflection(self, inflection: str):
         """
-        Provide inflecitonal information for the word. Only use this if the word is not a noun or a verb.
+        Provide inflectional information for the word. Only use this if the word is not a noun or a verb.
         For nouns, see `set_declension`, and for verbs, see `set_inflection`.
 
         Args:
             inflection: Freetext describing the word's inflection.
         """
         self.inflection = inflection
+
+    def add_derived_term(self, term: str):
+        """
+        Add a derived term (i.e. a word that is a morphological derivative of this one when analysed synchronically)
+        to the word.
+
+        Args:
+            term: a string that is the lemma form of the derived term
+
+        Examples:
+            >>> w = Word('game')
+            >>> w.add_derived_term('gamer')
+            >>> w.add_derived_term('gamification')
+        """
+        self.derived_terms.add(term)
 
 
 def export_words(words: List[Word], filepath: str):

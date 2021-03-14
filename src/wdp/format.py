@@ -77,6 +77,13 @@ ENTRY_TEMPLATE = Template(
       {{ word['inflection'] }}
     {% endif %}
     
+    {% if word['derived_terms'] %}
+        {{ section(3, "Derived terms") }}
+        {% for term in word['derived_terms'] %}
+            * {{LL}}l|{{lang_code}}|{{term}}{{RR}}
+        {% endfor %}
+    {% endif %}
+    
     {% if word['references'] %}
       {{ section(3, "References") }}
       {{ word['references'] }}
